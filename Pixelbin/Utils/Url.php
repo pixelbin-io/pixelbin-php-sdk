@@ -3,7 +3,6 @@
 namespace Pixelbin\Utils {
 
     use Pixelbin\Common\Exceptions;
-    use Pixelbin\Common;
 
     use Exception;
 

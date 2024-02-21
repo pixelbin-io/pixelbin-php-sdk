@@ -2,5 +2,5 @@
 
 # Pixelbin API Documentaion
 
-- [Assets](ASSETS.md) - Asset Uploader Service
-- [Organization](ORGANIZATION.md) - Organization Service
+-   [Assets](ASSETS.md) - Asset Uploader Service
+-   [Organization](ORGANIZATION.md) - Organization Service

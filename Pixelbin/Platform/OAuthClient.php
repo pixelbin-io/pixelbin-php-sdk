@@ -1,9 +1,6 @@
 <?php
 
 namespace Pixelbin\Platform {
-
-    require_once(__DIR__ . "/../autoload.php");
-
     /**
      * OAuth Client
      */

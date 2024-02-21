@@ -1,8 +1,6 @@
 <?php
 
 namespace Pixelbin\Platform {
-    require_once(__DIR__ . "/../autoload.php");
-
     use Pixelbin\Common\GuzzleHttpHelper;
     use Pixelbin\Common\Utils;
     use Pixelbin\Platform\PixelbinConfig;
