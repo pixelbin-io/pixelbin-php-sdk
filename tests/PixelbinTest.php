@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Pixelbin\Tests {
 
-    require_once(__DIR__ . "/../vendor/autoload.php");
-    require_once(__DIR__ . "/../Pixelbin/autoload.php");
     require_once(__DIR__ . "/test_utils.php");
 
     use PHPUnit\Framework\MockObject\MockObject;

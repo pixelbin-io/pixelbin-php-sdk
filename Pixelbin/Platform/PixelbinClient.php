@@ -1,8 +1,6 @@
 <?php
 
 namespace Pixelbin\Platform {
-    require_once(__DIR__ . "/../autoload.php");
-
     use Pixelbin\Platform\Enums\AccessEnum;
     use Pixelbin\Common\Exceptions;
 
@@ -29,27 +27,15 @@ namespace Pixelbin\Platform {
     }
 
     /**
-    * Upload File
+    * Add credentials for a transformation module.
     *
-    * Upload File to Pixelbin
-    * @param resource file Asset file
-    * @param string path Path where you want to store the asset. Path of containing folder
-    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Asset tags
-    * @param object metadata Asset related metadata
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * Add a transformation modules's credentials for an organization. 
+    * @param object credentials Credentials of the plugin
+    * @param string pluginId Unique identifier for the plugin this credential belongs to
     */
-    public function fileUploadAsync(
-        mixed $file=null, 
-        string $path=null, 
-        string $name=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
+    public function addCredentialsAsync(
+        object $credentials=null, 
+        string $pluginId=null
     ): array {
         $payload = [];
         
@@ -59,29 +45,11 @@ namespace Pixelbin\Platform {
 
         $body = [];
         
-        if ($file !== null)
-            $body["file"] = $file;
+        if ($credentials !== null)
+            $body["credentials"] = $credentials;
         
-        if ($path !== null)
-            $body["path"] = $path;
-        
-        if ($name !== null)
-            $body["name"] = $name;
-        
-        if ($access !== null)
-            $body["access"] = $access;
-        
-        if ($tags !== null)
-            $body["tags"] = $tags;
-        
-        if ($metadata !== null)
-            $body["metadata"] = $metadata;
-        
-        if ($overwrite !== null)
-            $body["overwrite"] = $overwrite;
-        
-        if ($filenameOverride !== null)
-            $body["filenameOverride"] = $filenameOverride;
+        if ($pluginId !== null)
+            $body["pluginId"] = $pluginId;
         
         // Body validation
         json_decode(json_encode($body), true);
@@ -92,115 +60,7 @@ namespace Pixelbin\Platform {
         $response = APIClient::execute(
             conf:$this->config,
             method:"post",
-            url:"/service/platform/assets/v1.0/upload/direct",
-            query:$query_params,
-            body:$body,
-            contentType:"multipart/form-data"
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Upload File
-    *
-    * Upload File to Pixelbin
-    * @param resource file Asset file
-    * @param string path Path where you want to store the asset. Path of containing folder
-    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Asset tags
-    * @param object metadata Asset related metadata
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
-    */
-    public function fileUpload(
-        mixed $file=null, 
-        string $path=null, 
-        string $name=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
-    ) {
-        return $this->fileUploadAsync(
-            file:$file, 
-            path:$path, 
-            name:$name, 
-            access:$access, 
-            tags:$tags, 
-            metadata:$metadata, 
-            overwrite:$overwrite, 
-            filenameOverride:$filenameOverride
-        );
-    }
-
-    /**
-    * Upload Asset with url
-    *
-    * Upload Asset with url
-    * @param string url Asset URL
-    * @param string path Path where you want to store the asset. Path of containing folder.
-    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Asset tags
-    * @param object metadata Asset related metadata
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
-    */
-    public function urlUploadAsync(
-        string $url=null, 
-        string $path=null, 
-        string $name=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
-    ): array {
-        $payload = [];
-        
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
-        
-        if ($url !== null)
-            $body["url"] = $url;
-        
-        if ($path !== null)
-            $body["path"] = $path;
-        
-        if ($name !== null)
-            $body["name"] = $name;
-        
-        if ($access !== null)
-            $body["access"] = $access;
-        
-        if ($tags !== null)
-            $body["tags"] = $tags;
-        
-        if ($metadata !== null)
-            $body["metadata"] = $metadata;
-        
-        if ($overwrite !== null)
-            $body["overwrite"] = $overwrite;
-        
-        if ($filenameOverride !== null)
-            $body["filenameOverride"] = $filenameOverride;
-        
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
-        
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"post",
-            url:"/service/platform/assets/v1.0/upload/url",
+            url:"/service/platform/assets/v1.0/credentials",
             query:$query_params,
             body:$body,
             contentType:"application/json"
@@ -210,64 +70,37 @@ namespace Pixelbin\Platform {
         return $response["content"];
     }
     /**
-    * Upload Asset with url
+    * Add credentials for a transformation module.
     *
-    * Upload Asset with url
-    * @param string url Asset URL
-    * @param string path Path where you want to store the asset. Path of containing folder.
-    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Asset tags
-    * @param object metadata Asset related metadata
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * Add a transformation modules's credentials for an organization. 
+    * @param object credentials Credentials of the plugin
+    * @param string pluginId Unique identifier for the plugin this credential belongs to
     */
-    public function urlUpload(
-        string $url=null, 
-        string $path=null, 
-        string $name=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
+    public function addCredentials(
+        object $credentials=null, 
+        string $pluginId=null
     ) {
-        return $this->urlUploadAsync(
-            url:$url, 
-            path:$path, 
-            name:$name, 
-            access:$access, 
-            tags:$tags, 
-            metadata:$metadata, 
-            overwrite:$overwrite, 
-            filenameOverride:$filenameOverride
+        return $this->addCredentialsAsync(
+            credentials:$credentials, 
+            pluginId:$pluginId
         );
     }
 
     /**
-    * S3 Signed URL upload
+    * Update credentials of a transformation module.
     *
-    * For the given asset details, a S3 signed URL will be generated, which can be then used to upload your asset. 
-    * @param string name name of the file
-    * @param string path Path of containing folder.
-    * @param string format Format of the file
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Tags associated with the file.
-    * @param object metadata Metadata associated with the file.
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * Update credentials of a transformation module, for an organization. 
+    * @param string $pluginId ID of the plugin whose credentials are being updated
+    * @param object credentials Credentials of the plugin
     */
-    public function createSignedUrlAsync(
-        string $name=null, 
-        string $path=null, 
-        string $format=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
+    public function updateCredentialsAsync(
+        string $pluginId=null,
+        object $credentials=null
     ): array {
         $payload = [];
+        
+        if ($pluginId !== null)
+            $payload["pluginId"] = $pluginId;
         
 
         // Parameter validation
@@ -275,29 +108,8 @@ namespace Pixelbin\Platform {
 
         $body = [];
         
-        if ($name !== null)
-            $body["name"] = $name;
-        
-        if ($path !== null)
-            $body["path"] = $path;
-        
-        if ($format !== null)
-            $body["format"] = $format;
-        
-        if ($access !== null)
-            $body["access"] = $access;
-        
-        if ($tags !== null)
-            $body["tags"] = $tags;
-        
-        if ($metadata !== null)
-            $body["metadata"] = $metadata;
-        
-        if ($overwrite !== null)
-            $body["overwrite"] = $overwrite;
-        
-        if ($filenameOverride !== null)
-            $body["filenameOverride"] = $filenameOverride;
+        if ($credentials !== null)
+            $body["credentials"] = $credentials;
         
         // Body validation
         json_decode(json_encode($body), true);
@@ -307,8 +119,8 @@ namespace Pixelbin\Platform {
 
         $response = APIClient::execute(
             conf:$this->config,
-            method:"post",
-            url:"/service/platform/assets/v1.0/upload/signed-url",
+            method:"patch",
+            url:"/service/platform/assets/v1.0/credentials/$pluginId",
             query:$query_params,
             body:$body,
             contentType:"application/json"
@@ -318,93 +130,34 @@ namespace Pixelbin\Platform {
         return $response["content"];
     }
     /**
-    * S3 Signed URL upload
+    * Update credentials of a transformation module.
     *
-    * For the given asset details, a S3 signed URL will be generated, which can be then used to upload your asset. 
-    * @param string name name of the file
-    * @param string path Path of containing folder.
-    * @param string format Format of the file
-    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
-    * @param array tags Tags associated with the file.
-    * @param object metadata Metadata associated with the file.
-    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
-    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * Update credentials of a transformation module, for an organization. 
+    * @param string $pluginId ID of the plugin whose credentials are being updated
+    * @param object credentials Credentials of the plugin
     */
-    public function createSignedUrl(
-        string $name=null, 
-        string $path=null, 
-        string $format=null, 
-        AccessEnum $access=null, 
-        array $tags=null, 
-        object $metadata=null, 
-        bool $overwrite=null, 
-        bool $filenameOverride=null
+    public function updateCredentials(
+        string $pluginId=null,
+        object $credentials=null
     ) {
-        return $this->createSignedUrlAsync(
-            name:$name, 
-            path:$path, 
-            format:$format, 
-            access:$access, 
-            tags:$tags, 
-            metadata:$metadata, 
-            overwrite:$overwrite, 
-            filenameOverride:$filenameOverride
+        return $this->updateCredentialsAsync(
+            pluginId:$pluginId,
+            credentials:$credentials
         );
     }
 
     /**
-    * List and search files and folders.
+    * Delete credentials of a transformation module.
     *
-    * List all files and folders in root folder. Search for files if name is provided. If path is provided, search in the specified path. 
-    * @param string|null $name Optional. Find items with matching name
-    * @param string|null $path Optional. Find items with matching path
-    * @param string|null $format Optional. Find items with matching format
-    * @param array|null $tags Optional. Find items containing these tags
-    * @param bool|null $onlyFiles Optional. If true will fetch only files
-    * @param bool|null $onlyFolders Optional. If true will fetch only folders
-    * @param int|null $pageNo Optional. Page No.
-    * @param int|null $pageSize Optional. Page Size
-    * @param string|null $sort Optional. Key to sort results by. A "-" suffix will sort results in descending orders.
-    */
-    public function listFilesAsync(
-        string $name=null, 
-        string $path=null, 
-        string $format=null, 
-        array $tags=null, 
-        bool $onlyFiles=null, 
-        bool $onlyFolders=null, 
-        int $pageNo=null, 
-        int $pageSize=null, 
-        string $sort=null
+    * Delete credentials of a transformation module, for an organization. 
+    * @param string $pluginId ID of the plugin whose credentials are being deleted    */
+    public function deleteCredentialsAsync(
+        string $pluginId=null
     ): array {
         $payload = [];
         
-        if ($name !== null)
-            $payload["name"] = $name;
-        
-        if ($path !== null)
-            $payload["path"] = $path;
-        
-        if ($format !== null)
-            $payload["format"] = $format;
-        
-        if ($tags !== null)
-            $payload["tags"] = $tags;
-        
-        if ($onlyFiles !== null)
-            $payload["onlyFiles"] = $onlyFiles;
-        
-        if ($onlyFolders !== null)
-            $payload["onlyFolders"] = $onlyFolders;
-        
-        if ($pageNo !== null)
-            $payload["pageNo"] = $pageNo;
-        
-        if ($pageSize !== null)
-            $payload["pageSize"] = $pageSize;
-        
-        if ($sort !== null)
-            $payload["sort"] = $sort;
+        if ($pluginId !== null)
+            $payload["pluginId"] = $pluginId;
         
 
         // Parameter validation
@@ -417,38 +170,11 @@ namespace Pixelbin\Platform {
 
         $query_params = [];
         
-        if ($name !== null)
-            $query_params["name"] = $name;
-        
-        if ($path !== null)
-            $query_params["path"] = $path;
-        
-        if ($format !== null)
-            $query_params["format"] = $format;
-        
-        if ($tags !== null)
-            $query_params["tags"] = $tags;
-        
-        if ($onlyFiles !== null)
-            $query_params["onlyFiles"] = $onlyFiles;
-        
-        if ($onlyFolders !== null)
-            $query_params["onlyFolders"] = $onlyFolders;
-        
-        if ($pageNo !== null)
-            $query_params["pageNo"] = $pageNo;
-        
-        if ($pageSize !== null)
-            $query_params["pageSize"] = $pageSize;
-        
-        if ($sort !== null)
-            $query_params["sort"] = $sort;
-        
 
         $response = APIClient::execute(
             conf:$this->config,
-            method:"get",
-            url:"/service/platform/assets/v1.0/listFiles",
+            method:"delete",
+            url:"/service/platform/assets/v1.0/credentials/$pluginId",
             query:$query_params,
             body:$body,
             contentType:""
@@ -458,112 +184,15 @@ namespace Pixelbin\Platform {
         return $response["content"];
     }
     /**
-    * List and search files and folders.
+    * Delete credentials of a transformation module.
     *
-    * List all files and folders in root folder. Search for files if name is provided. If path is provided, search in the specified path. 
-    * @param string|null $name Optional. Find items with matching name
-    * @param string|null $path Optional. Find items with matching path
-    * @param string|null $format Optional. Find items with matching format
-    * @param array|null $tags Optional. Find items containing these tags
-    * @param bool|null $onlyFiles Optional. If true will fetch only files
-    * @param bool|null $onlyFolders Optional. If true will fetch only folders
-    * @param int|null $pageNo Optional. Page No.
-    * @param int|null $pageSize Optional. Page Size
-    * @param string|null $sort Optional. Key to sort results by. A "-" suffix will sort results in descending orders.
-    */
-    public function listFiles(
-        string $name=null, 
-        string $path=null, 
-        string $format=null, 
-        array $tags=null, 
-        bool $onlyFiles=null, 
-        bool $onlyFolders=null, 
-        int $pageNo=null, 
-        int $pageSize=null, 
-        string $sort=null
+    * Delete credentials of a transformation module, for an organization. 
+    * @param string $pluginId ID of the plugin whose credentials are being deleted    */
+    public function deleteCredentials(
+        string $pluginId=null
     ) {
-        return $this->listFilesAsync(
-            name:$name, 
-            path:$path, 
-            format:$format, 
-            tags:$tags, 
-            onlyFiles:$onlyFiles, 
-            onlyFolders:$onlyFolders, 
-            pageNo:$pageNo, 
-            pageSize:$pageSize, 
-            sort:$sort
-        );
-    }
-
-    /**
-    * Get transformations of a file
-    *
-    * 
-    * @param string $fileId Combination of `path` and `name`
-    * @param int|null $pageNo Optional. Page No
-    * @param int|null $pageSize Optional. Page Size    */
-    public function getTransformationsOfFileAsync(
-        string $fileId=null, 
-        int $pageNo=null, 
-        int $pageSize=null
-    ): array {
-        $payload = [];
-        
-        if ($fileId !== null)
-            $payload["fileId"] = $fileId;
-        
-        if ($pageNo !== null)
-            $payload["pageNo"] = $pageNo;
-        
-        if ($pageSize !== null)
-            $payload["pageSize"] = $pageSize;
-        
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
-        
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
-        
-        if ($pageNo !== null)
-            $query_params["pageNo"] = $pageNo;
-        
-        if ($pageSize !== null)
-            $query_params["pageSize"] = $pageSize;
-        
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"get",
-            url:"/service/platform/assets/v1.0/files/transformations",
-            query:$query_params,
-            body:$body,
-            contentType:""
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Get transformations of a file
-    *
-    * 
-    * @param string $fileId Combination of `path` and `name`
-    * @param int|null $pageNo Optional. Page No
-    * @param int|null $pageSize Optional. Page Size    */
-    public function getTransformationsOfFile(
-        string $fileId=null, 
-        int $pageNo=null, 
-        int $pageSize=null
-    ) {
-        return $this->getTransformationsOfFileAsync(
-            fileId:$fileId, 
-            pageNo:$pageNo, 
-            pageSize:$pageSize
+        return $this->deleteCredentialsAsync(
+            pluginId:$pluginId
         );
     }
 
@@ -673,7 +302,7 @@ namespace Pixelbin\Platform {
     * 
     * @param string $fileId Combination of `path` and `name`
     * @param string name Name of the file
-    * @param string path path of containing folder.
+    * @param string path Path of the file
     * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
     * @param bool isActive Whether the file is active
     * @param array tags Tags associated with the file
@@ -741,7 +370,7 @@ namespace Pixelbin\Platform {
     * 
     * @param string $fileId Combination of `path` and `name`
     * @param string name Name of the file
-    * @param string path path of containing folder.
+    * @param string path Path of the file
     * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
     * @param bool isActive Whether the file is active
     * @param array tags Tags associated with the file
@@ -874,7 +503,7 @@ namespace Pixelbin\Platform {
     *
     * Create a new folder at the specified path. Also creates the ancestors if they do not exist. 
     * @param string name Name of the folder
-    * @param string path path of containing folder.
+    * @param string path Path of the folder
     */
     public function createFolderAsync(
         string $name=null, 
@@ -917,7 +546,7 @@ namespace Pixelbin\Platform {
     *
     * Create a new folder at the specified path. Also creates the ancestors if they do not exist. 
     * @param string name Name of the folder
-    * @param string path path of containing folder.
+    * @param string path Path of the folder
     */
     public function createFolder(
         string $name=null, 
@@ -1154,137 +783,58 @@ namespace Pixelbin\Platform {
     }
 
     /**
-    * Add credentials for a transformation module.
+    * List and search files and folders.
     *
-    * Add a transformation modules's credentials for an organization. 
-    * @param object credentials Credentials of the plugin
-    * @param string pluginId Unique identifier for the plugin this credential belongs to
+    * List all files and folders in root folder. Search for files if name is provided. If path is provided, search in the specified path. 
+    * @param string|null $name Optional. Find items with matching name
+    * @param string|null $path Optional. Find items with matching path
+    * @param string|null $format Optional. Find items with matching format
+    * @param array|null $tags Optional. Find items containing these tags
+    * @param bool|null $onlyFiles Optional. If true will fetch only files
+    * @param bool|null $onlyFolders Optional. If true will fetch only folders
+    * @param int|null $pageNo Optional. Page No.
+    * @param int|null $pageSize Optional. Page Size
+    * @param string|null $sort Optional. Key to sort results by. A "-" suffix will sort results in descending orders.
     */
-    public function addCredentialsAsync(
-        object $credentials=null, 
-        string $pluginId=null
+    public function listFilesAsync(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        array $tags=null, 
+        bool $onlyFiles=null, 
+        bool $onlyFolders=null, 
+        int $pageNo=null, 
+        int $pageSize=null, 
+        string $sort=null
     ): array {
         $payload = [];
         
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
+        if ($name !== null)
+            $payload["name"] = $name;
         
-        if ($credentials !== null)
-            $body["credentials"] = $credentials;
+        if ($path !== null)
+            $payload["path"] = $path;
         
-        if ($pluginId !== null)
-            $body["pluginId"] = $pluginId;
+        if ($format !== null)
+            $payload["format"] = $format;
         
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
+        if ($tags !== null)
+            $payload["tags"] = $tags;
         
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"post",
-            url:"/service/platform/assets/v1.0/credentials",
-            query:$query_params,
-            body:$body,
-            contentType:"application/json"
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Add credentials for a transformation module.
-    *
-    * Add a transformation modules's credentials for an organization. 
-    * @param object credentials Credentials of the plugin
-    * @param string pluginId Unique identifier for the plugin this credential belongs to
-    */
-    public function addCredentials(
-        object $credentials=null, 
-        string $pluginId=null
-    ) {
-        return $this->addCredentialsAsync(
-            credentials:$credentials, 
-            pluginId:$pluginId
-        );
-    }
-
-    /**
-    * Update credentials of a transformation module.
-    *
-    * Update credentials of a transformation module, for an organization. 
-    * @param string $pluginId ID of the plugin whose credentials are being updated
-    * @param object credentials Credentials of the plugin
-    */
-    public function updateCredentialsAsync(
-        string $pluginId=null,
-        object $credentials=null
-    ): array {
-        $payload = [];
+        if ($onlyFiles !== null)
+            $payload["onlyFiles"] = $onlyFiles;
         
-        if ($pluginId !== null)
-            $payload["pluginId"] = $pluginId;
+        if ($onlyFolders !== null)
+            $payload["onlyFolders"] = $onlyFolders;
         
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
+        if ($pageNo !== null)
+            $payload["pageNo"] = $pageNo;
         
-        if ($credentials !== null)
-            $body["credentials"] = $credentials;
+        if ($pageSize !== null)
+            $payload["pageSize"] = $pageSize;
         
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
-        
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"patch",
-            url:"/service/platform/assets/v1.0/credentials/$pluginId",
-            query:$query_params,
-            body:$body,
-            contentType:"application/json"
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Update credentials of a transformation module.
-    *
-    * Update credentials of a transformation module, for an organization. 
-    * @param string $pluginId ID of the plugin whose credentials are being updated
-    * @param object credentials Credentials of the plugin
-    */
-    public function updateCredentials(
-        string $pluginId=null,
-        object $credentials=null
-    ) {
-        return $this->updateCredentialsAsync(
-            pluginId:$pluginId,
-            credentials:$credentials
-        );
-    }
-
-    /**
-    * Delete credentials of a transformation module.
-    *
-    * Delete credentials of a transformation module, for an organization. 
-    * @param string $pluginId ID of the plugin whose credentials are being deleted    */
-    public function deleteCredentialsAsync(
-        string $pluginId=null
-    ): array {
-        $payload = [];
-        
-        if ($pluginId !== null)
-            $payload["pluginId"] = $pluginId;
+        if ($sort !== null)
+            $payload["sort"] = $sort;
         
 
         // Parameter validation
@@ -1297,11 +847,38 @@ namespace Pixelbin\Platform {
 
         $query_params = [];
         
+        if ($name !== null)
+            $query_params["name"] = $name;
+        
+        if ($path !== null)
+            $query_params["path"] = $path;
+        
+        if ($format !== null)
+            $query_params["format"] = $format;
+        
+        if ($tags !== null)
+            $query_params["tags"] = $tags;
+        
+        if ($onlyFiles !== null)
+            $query_params["onlyFiles"] = $onlyFiles;
+        
+        if ($onlyFolders !== null)
+            $query_params["onlyFolders"] = $onlyFolders;
+        
+        if ($pageNo !== null)
+            $query_params["pageNo"] = $pageNo;
+        
+        if ($pageSize !== null)
+            $query_params["pageSize"] = $pageSize;
+        
+        if ($sort !== null)
+            $query_params["sort"] = $sort;
+        
 
         $response = APIClient::execute(
             conf:$this->config,
-            method:"delete",
-            url:"/service/platform/assets/v1.0/credentials/$pluginId",
+            method:"get",
+            url:"/service/platform/assets/v1.0/listFiles",
             query:$query_params,
             body:$body,
             contentType:""
@@ -1311,15 +888,168 @@ namespace Pixelbin\Platform {
         return $response["content"];
     }
     /**
-    * Delete credentials of a transformation module.
+    * List and search files and folders.
     *
-    * Delete credentials of a transformation module, for an organization. 
-    * @param string $pluginId ID of the plugin whose credentials are being deleted    */
-    public function deleteCredentials(
-        string $pluginId=null
+    * List all files and folders in root folder. Search for files if name is provided. If path is provided, search in the specified path. 
+    * @param string|null $name Optional. Find items with matching name
+    * @param string|null $path Optional. Find items with matching path
+    * @param string|null $format Optional. Find items with matching format
+    * @param array|null $tags Optional. Find items containing these tags
+    * @param bool|null $onlyFiles Optional. If true will fetch only files
+    * @param bool|null $onlyFolders Optional. If true will fetch only folders
+    * @param int|null $pageNo Optional. Page No.
+    * @param int|null $pageSize Optional. Page Size
+    * @param string|null $sort Optional. Key to sort results by. A "-" suffix will sort results in descending orders.
+    */
+    public function listFiles(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        array $tags=null, 
+        bool $onlyFiles=null, 
+        bool $onlyFolders=null, 
+        int $pageNo=null, 
+        int $pageSize=null, 
+        string $sort=null
     ) {
-        return $this->deleteCredentialsAsync(
-            pluginId:$pluginId
+        return $this->listFilesAsync(
+            name:$name, 
+            path:$path, 
+            format:$format, 
+            tags:$tags, 
+            onlyFiles:$onlyFiles, 
+            onlyFolders:$onlyFolders, 
+            pageNo:$pageNo, 
+            pageSize:$pageSize, 
+            sort:$sort
+        );
+    }
+
+    /**
+    * Get default asset for playground
+    *
+    * Get default asset for playground    */
+    public function getDefaultAssetForPlaygroundAsync(): array {
+        $payload = [];
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"get",
+            url:"/service/platform/assets/v1.0/playground/default",
+            query:$query_params,
+            body:$body,
+            contentType:""
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * Get default asset for playground
+    *
+    * Get default asset for playground    */
+    public function getDefaultAssetForPlayground() {
+        return $this->getDefaultAssetForPlaygroundAsync();
+    }
+
+    /**
+    * Get all transformation modules
+    *
+    * Get all transformation modules.     */
+    public function getModulesAsync(): array {
+        $payload = [];
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"get",
+            url:"/service/platform/assets/v1.0/playground/plugins",
+            query:$query_params,
+            body:$body,
+            contentType:""
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * Get all transformation modules
+    *
+    * Get all transformation modules.     */
+    public function getModules() {
+        return $this->getModulesAsync();
+    }
+
+    /**
+    * Get Transformation Module by module identifier
+    *
+    * Get Transformation Module by module identifier 
+    * @param string $identifier identifier of Transformation Module    */
+    public function getModuleAsync(
+        string $identifier=null
+    ): array {
+        $payload = [];
+        
+        if ($identifier !== null)
+            $payload["identifier"] = $identifier;
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"get",
+            url:"/service/platform/assets/v1.0/playground/plugins/$identifier",
+            query:$query_params,
+            body:$body,
+            contentType:""
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * Get Transformation Module by module identifier
+    *
+    * Get Transformation Module by module identifier 
+    * @param string $identifier identifier of Transformation Module    */
+    public function getModule(
+        string $identifier=null
+    ) {
+        return $this->getModuleAsync(
+            identifier:$identifier
         );
     }
 
@@ -1591,101 +1321,59 @@ namespace Pixelbin\Platform {
     }
 
     /**
-    * Get default asset for playground
+    * Upload File
     *
-    * Get default asset for playground    */
-    public function getDefaultAssetForPlaygroundAsync(): array {
-        $payload = [];
-        
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
-        
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
-        
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"get",
-            url:"/service/platform/assets/v1.0/playground/default",
-            query:$query_params,
-            body:$body,
-            contentType:""
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Get default asset for playground
-    *
-    * Get default asset for playground    */
-    public function getDefaultAssetForPlayground() {
-        return $this->getDefaultAssetForPlaygroundAsync();
-    }
-
-    /**
-    * Get all transformation modules
-    *
-    * Get all transformation modules.     */
-    public function getModulesAsync(): array {
-        $payload = [];
-        
-
-        // Parameter validation
-        json_decode(json_encode($payload), true);
-
-        $body = [];
-        
-        // Body validation
-        json_decode(json_encode($body), true);
-
-        $query_params = [];
-        
-
-        $response = APIClient::execute(
-            conf:$this->config,
-            method:"get",
-            url:"/service/platform/assets/v1.0/playground/plugins",
-            query:$query_params,
-            body:$body,
-            contentType:""
-        );
-        if ($response["status_code"] !== 200)
-            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
-        return $response["content"];
-    }
-    /**
-    * Get all transformation modules
-    *
-    * Get all transformation modules.     */
-    public function getModules() {
-        return $this->getModulesAsync();
-    }
-
-    /**
-    * Get Transformation Module by module identifier
-    *
-    * Get Transformation Module by module identifier 
-    * @param string $identifier identifier of Transformation Module    */
-    public function getModuleAsync(
-        string $identifier=null
+    * Upload File to Pixelbin
+    * @param resource file Asset file
+    * @param string path Path where you want to store the asset
+    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Asset tags
+    * @param object metadata Asset related metadata
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function fileUploadAsync(
+        mixed $file=null, 
+        string $path=null, 
+        string $name=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
     ): array {
         $payload = [];
         
-        if ($identifier !== null)
-            $payload["identifier"] = $identifier;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
+        
+        if ($file !== null)
+            $body["file"] = $file;
+        
+        if ($path !== null)
+            $body["path"] = $path;
+        
+        if ($name !== null)
+            $body["name"] = $name;
+        
+        if ($access !== null)
+            $body["access"] = $access;
+        
+        if ($tags !== null)
+            $body["tags"] = $tags;
+        
+        if ($metadata !== null)
+            $body["metadata"] = $metadata;
+        
+        if ($overwrite !== null)
+            $body["overwrite"] = $overwrite;
+        
+        if ($filenameOverride !== null)
+            $body["filenameOverride"] = $filenameOverride;
         
         // Body validation
         json_decode(json_encode($body), true);
@@ -1695,26 +1383,380 @@ namespace Pixelbin\Platform {
 
         $response = APIClient::execute(
             conf:$this->config,
-            method:"get",
-            url:"/service/platform/assets/v1.0/playground/plugins/$identifier",
+            method:"post",
+            url:"/service/platform/assets/v1.0/upload/direct",
             query:$query_params,
             body:$body,
-            contentType:""
+            contentType:"multipart/form-data"
         );
         if ($response["status_code"] !== 200)
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
     /**
-    * Get Transformation Module by module identifier
+    * Upload File
     *
-    * Get Transformation Module by module identifier 
-    * @param string $identifier identifier of Transformation Module    */
-    public function getModule(
-        string $identifier=null
+    * Upload File to Pixelbin
+    * @param resource file Asset file
+    * @param string path Path where you want to store the asset
+    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Asset tags
+    * @param object metadata Asset related metadata
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function fileUpload(
+        mixed $file=null, 
+        string $path=null, 
+        string $name=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
     ) {
-        return $this->getModuleAsync(
-            identifier:$identifier
+        return $this->fileUploadAsync(
+            file:$file, 
+            path:$path, 
+            name:$name, 
+            access:$access, 
+            tags:$tags, 
+            metadata:$metadata, 
+            overwrite:$overwrite, 
+            filenameOverride:$filenameOverride
+        );
+    }
+
+    /**
+    * Upload Asset with url
+    *
+    * Upload Asset with url
+    * @param string url Asset URL
+    * @param string path Path where you want to store the asset
+    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Asset tags
+    * @param object metadata Asset related metadata
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function urlUploadAsync(
+        string $url=null, 
+        string $path=null, 
+        string $name=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
+    ): array {
+        $payload = [];
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        if ($url !== null)
+            $body["url"] = $url;
+        
+        if ($path !== null)
+            $body["path"] = $path;
+        
+        if ($name !== null)
+            $body["name"] = $name;
+        
+        if ($access !== null)
+            $body["access"] = $access;
+        
+        if ($tags !== null)
+            $body["tags"] = $tags;
+        
+        if ($metadata !== null)
+            $body["metadata"] = $metadata;
+        
+        if ($overwrite !== null)
+            $body["overwrite"] = $overwrite;
+        
+        if ($filenameOverride !== null)
+            $body["filenameOverride"] = $filenameOverride;
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"post",
+            url:"/service/platform/assets/v1.0/upload/url",
+            query:$query_params,
+            body:$body,
+            contentType:"application/json"
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * Upload Asset with url
+    *
+    * Upload Asset with url
+    * @param string url Asset URL
+    * @param string path Path where you want to store the asset
+    * @param string name Name of the asset, if not provided name of the file will be used. Note - The provided name will be slugified to make it URL safe
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Asset tags
+    * @param object metadata Asset related metadata
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function urlUpload(
+        string $url=null, 
+        string $path=null, 
+        string $name=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
+    ) {
+        return $this->urlUploadAsync(
+            url:$url, 
+            path:$path, 
+            name:$name, 
+            access:$access, 
+            tags:$tags, 
+            metadata:$metadata, 
+            overwrite:$overwrite, 
+            filenameOverride:$filenameOverride
+        );
+    }
+
+    /**
+    * S3 Signed URL upload
+    *
+    * For the given asset details, a S3 signed URL will be generated, which can be then used to upload your asset. 
+    * @param string name name of the file
+    * @param string path Path of the file
+    * @param string format Format of the file
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Tags associated with the file.
+    * @param object metadata Metadata associated with the file.
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function createSignedUrlAsync(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
+    ): array {
+        $payload = [];
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        if ($name !== null)
+            $body["name"] = $name;
+        
+        if ($path !== null)
+            $body["path"] = $path;
+        
+        if ($format !== null)
+            $body["format"] = $format;
+        
+        if ($access !== null)
+            $body["access"] = $access;
+        
+        if ($tags !== null)
+            $body["tags"] = $tags;
+        
+        if ($metadata !== null)
+            $body["metadata"] = $metadata;
+        
+        if ($overwrite !== null)
+            $body["overwrite"] = $overwrite;
+        
+        if ($filenameOverride !== null)
+            $body["filenameOverride"] = $filenameOverride;
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"post",
+            url:"/service/platform/assets/v1.0/upload/signed-url",
+            query:$query_params,
+            body:$body,
+            contentType:"application/json"
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * S3 Signed URL upload
+    *
+    * For the given asset details, a S3 signed URL will be generated, which can be then used to upload your asset. 
+    * @param string name name of the file
+    * @param string path Path of the file
+    * @param string format Format of the file
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Tags associated with the file.
+    * @param object metadata Metadata associated with the file.
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    */
+    public function createSignedUrl(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null
+    ) {
+        return $this->createSignedUrlAsync(
+            name:$name, 
+            path:$path, 
+            format:$format, 
+            access:$access, 
+            tags:$tags, 
+            metadata:$metadata, 
+            overwrite:$overwrite, 
+            filenameOverride:$filenameOverride
+        );
+    }
+
+    /**
+    * Signed multipart upload
+    *
+    * For the given asset details, a presigned URL will be generated, which can be then used to upload your asset in chunks via multipart upload.
+    * @param string name name of the file
+    * @param string path Path of containing folder.
+    * @param string format Format of the file
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Tags associated with the file.
+    * @param object metadata Metadata associated with the file.
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * @param int expiry Expiry time in seconds for the signed URL. Defaults to 3000 seconds.
+    */
+    public function createSignedUrlV2Async(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null, 
+        int $expiry=null
+    ): array {
+        $payload = [];
+        
+
+        // Parameter validation
+        json_decode(json_encode($payload), true);
+
+        $body = [];
+        
+        if ($name !== null)
+            $body["name"] = $name;
+        
+        if ($path !== null)
+            $body["path"] = $path;
+        
+        if ($format !== null)
+            $body["format"] = $format;
+        
+        if ($access !== null)
+            $body["access"] = $access;
+        
+        if ($tags !== null)
+            $body["tags"] = $tags;
+        
+        if ($metadata !== null)
+            $body["metadata"] = $metadata;
+        
+        if ($overwrite !== null)
+            $body["overwrite"] = $overwrite;
+        
+        if ($filenameOverride !== null)
+            $body["filenameOverride"] = $filenameOverride;
+        
+        if ($expiry !== null)
+            $body["expiry"] = $expiry;
+        
+        // Body validation
+        json_decode(json_encode($body), true);
+
+        $query_params = [];
+        
+
+        $response = APIClient::execute(
+            conf:$this->config,
+            method:"post",
+            url:"/service/platform/assets/v2.0/upload/signed-url",
+            query:$query_params,
+            body:$body,
+            contentType:"application/json"
+        );
+        if ($response["status_code"] !== 200)
+            throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
+        return $response["content"];
+    }
+    /**
+    * Signed multipart upload
+    *
+    * For the given asset details, a presigned URL will be generated, which can be then used to upload your asset in chunks via multipart upload.
+    * @param string name name of the file
+    * @param string path Path of containing folder.
+    * @param string format Format of the file
+    * @param AccessEnum access Access level of asset, can be either `public-read` or `private`
+    * @param array tags Tags associated with the file.
+    * @param object metadata Metadata associated with the file.
+    * @param bool overwrite Overwrite flag. If set to `true` will overwrite any file that exists with same path, name and type. Defaults to `false`.
+    * @param bool filenameOverride If set to `true` will add unique characters to name if asset with given name already exists. If overwrite flag is set to `true`, preference will be given to overwrite flag. If both are set to `false` an error will be raised.
+    * @param int expiry Expiry time in seconds for the signed URL. Defaults to 3000 seconds.
+    */
+    public function createSignedUrlV2(
+        string $name=null, 
+        string $path=null, 
+        string $format=null, 
+        AccessEnum $access=null, 
+        array $tags=null, 
+        object $metadata=null, 
+        bool $overwrite=null, 
+        bool $filenameOverride=null, 
+        int $expiry=null
+    ) {
+        return $this->createSignedUrlV2Async(
+            name:$name, 
+            path:$path, 
+            format:$format, 
+            access:$access, 
+            tags:$tags, 
+            metadata:$metadata, 
+            overwrite:$overwrite, 
+            filenameOverride:$filenameOverride, 
+            expiry:$expiry
         );
     }
 

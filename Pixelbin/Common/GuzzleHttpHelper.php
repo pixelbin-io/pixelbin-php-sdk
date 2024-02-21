@@ -8,7 +8,6 @@ namespace Pixelbin\Common {
     use GuzzleHttp\Cookie\SetCookie;
     use GuzzleHttp\Exception\ClientException;
     use GuzzleHttp\RequestOptions;
-    use PHPUnit\Framework\Constraint\IsInstanceOf;
     use Pixelbin\Common\DateHelper;
 
     /**
@@ -78,12 +77,6 @@ namespace Pixelbin\Common {
                 $responseBody["status_code"] = 999;
                 $responseBody["error_message"] = $e->getResponse()->getBody()->getContents();
                 $responseBody["error_message"] = print_r(json_decode($responseBody["error_message"], true, flags: JSON_UNESCAPED_SLASHES), true);
-
-                // $responseBody = [
-                //     'status_code' => $e->getCode(),
-                //     'latency' => round(microtime(true) - $start_time, 2),
-                //     'text' => $e->getMessage()
-                // ];
             } catch (Exception $e) {
                 print_r($e);
             }
