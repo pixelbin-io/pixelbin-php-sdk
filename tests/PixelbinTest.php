@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pixelbin\Tests {
 
-    require_once(__DIR__ . "/test_utils.php");
+    require_once (__DIR__ . "/test_utils.php");
 
     use PHPUnit\Framework\MockObject\MockObject;
     use Pixelbin\Utils\Url;
@@ -57,6 +57,22 @@ namespace Pixelbin\Tests {
                     ->willReturn($mockResponse);
                 APIClient::$helper = $this->guzzleHttpHelperMock;
             }
+        }
+
+        public function checkResponseHeaders(array $expected_value, array $data): bool
+        {
+            foreach ($expected_value as $key => $value) {
+                try {
+                    $this->assertArrayHasKey($key, $data);
+                    if ($expected_value[$key] !== anything()) {
+                        $this->assertEquals($expected_value[$key], $data[$key]);
+                    }
+                } catch (Exception $e) {
+                    print_r($e);
+                    return false;
+                }
+            }
+            return true;
         }
 
         public function setUpAssertions(array $mockData = [], array $realData = [])
@@ -148,18 +164,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     })
                 ]
             );
@@ -205,18 +210,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -262,18 +256,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -286,7 +269,7 @@ namespace Pixelbin\Tests {
                 name: "1",
                 access: AccessEnum::PUBLIC_READ,
                 tags: $tags,
-                metadata: (object)[],
+                metadata: (object) [],
                 overwrite: false,
                 filenameOverride: true,
             );
@@ -324,18 +307,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -363,34 +335,26 @@ namespace Pixelbin\Tests {
         {
 
             $mock_response = MOCK_RESPONSE["listFiles1"]["response"];
-            $this->setMockObjectExpectations($mock_response, [
-                "get",
-                CONFIG["domain"] . "/service/platform/assets/v1.0/listFiles",
-                [],
-                [],
-                self::callback(function ($data) {
-                    $expected_value = [
-                        "host" => CONFIG["host"],
-                        "x-ebg-param" => $this->anything(),
-                        "x-ebg-signature" => $this->anything(),
-                        "Authorization" => $this->anything()
-                    ];
+            $this->setMockObjectExpectations(
+                $mock_response,
+                [
+                    "get",
+                    CONFIG["domain"] . "/service/platform/assets/v1.0/listFiles",
+                    [],
+                    [],
+                    self::callback(function ($data) {
+                        $expected_value = [
+                            "host" => CONFIG["host"],
+                            "x-ebg-param" => $this->anything(),
+                            "x-ebg-signature" => $this->anything(),
+                            "Authorization" => $this->anything()
+                        ];
 
-                    foreach ($expected_value as $key => $value) {
-                        try {
-                            $this->assertArrayHasKey($key, $data);
-                            if ($expected_value[$key] !== anything()) {
-                                $this->assertEquals($expected_value[$key], $data[$key]);
-                            }
-                            return true;
-                        } catch (Exception $e) {
-                            print_r($e);
-                            return false;
-                        }
-                    }
-                }),
-                $this->anything()
-            ]);
+                        return $this->checkResponseHeaders($expected_value, $data);
+                    }),
+                    $this->anything()
+                ]
+            );
 
 
             $resp = $this->pixelbinClient->assets->listFiles();
@@ -438,18 +402,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -489,7 +442,7 @@ namespace Pixelbin\Tests {
                 "name" => "2",
                 "access" => AccessEnum::PUBLIC_READ,
                 "tags" => ["cat", "animal"],
-                "metadata" => (object)[],
+                "metadata" => (object) [],
                 "overwrite" => false,
                 "filenameOverride" => true,
             ];
@@ -510,18 +463,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -536,7 +478,7 @@ namespace Pixelbin\Tests {
                 name: "2",
                 access: AccessEnum::PUBLIC_READ,
                 tags: $tags,
-                metadata: (object)[],
+                metadata: (object) [],
                 overwrite: false,
                 filenameOverride: true,
             );
@@ -573,18 +515,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -614,7 +545,7 @@ namespace Pixelbin\Tests {
                 "format" => "jpeg",
                 "access" => AccessEnum::PUBLIC_READ,
                 "tags" => ["tag1", "tag2"],
-                "metadata" => (object)[],
+                "metadata" => (object) [],
                 "overwrite" => false,
                 "filenameOverride" => true,
             ];
@@ -634,18 +565,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -658,7 +578,7 @@ namespace Pixelbin\Tests {
                 "format" => "jpeg",
                 "access" => AccessEnum::PUBLIC_READ,
                 "tags" => ["tag1", "tag2"],
-                "metadata" => (object)[],
+                "metadata" => (object) [],
                 "overwrite" => false,
                 "filenameOverride" => true,
             ];
@@ -699,18 +619,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -743,10 +652,10 @@ namespace Pixelbin\Tests {
             $mock_data = [
                 "name" => $this->folder_name . "_",
                 "path" => $this->folder_name,
-                "access" => AccessEnum::PRIVATE,
+                "access" => AccessEnum::PRIVATE ,
                 "isActive" => true,
                 "tags" => ["updated-tag1", "updated-tag2"],
-                "metadata" => (object)["key" => "value"],
+                "metadata" => (object) ["key" => "value"],
             ];
             $mock_response = MOCK_RESPONSE["updateFile2"]["response"];
             $this->setMockObjectExpectations(
@@ -764,18 +673,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -788,10 +686,10 @@ namespace Pixelbin\Tests {
             $data = [
                 "name" => $name,
                 "path" => $this->folder_name,
-                "access" => AccessEnum::PRIVATE,
+                "access" => AccessEnum::PRIVATE ,
                 "isActive" => true,
                 "tags" => $tags,
-                "metadata" => (object)["key" => "value"],
+                "metadata" => (object) ["key" => "value"],
             ];
 
             $resp = $this->pixelbinClient->assets->updateFile($fileId, ...$data);
@@ -828,18 +726,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -882,18 +769,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything()
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -943,18 +819,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1008,18 +873,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1064,18 +918,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1121,18 +964,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1175,18 +1007,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1229,18 +1050,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1281,18 +1091,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1318,7 +1117,7 @@ namespace Pixelbin\Tests {
         {
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_data = [
-                "credentials" => (object)["apiKey" => "$apiKey"],
+                "credentials" => (object) ["apiKey" => "$apiKey"],
                 "pluginId" => "remove",
             ];
             $mock_response = MOCK_RESPONSE["addCredentials"]["response"];
@@ -1338,18 +1137,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json",
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1361,7 +1149,7 @@ namespace Pixelbin\Tests {
 
             $credentials = ["apiKey" => $apiKey];
             $pluginId = "remove";
-            $resp = $this->pixelbinClient->assets->addCredentials((object)$credentials, $pluginId);
+            $resp = $this->pixelbinClient->assets->addCredentials((object) $credentials, $pluginId);
 
             $this->setUpAssertions(
                 [
@@ -1380,7 +1168,7 @@ namespace Pixelbin\Tests {
         {
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_data = [
-                "credentials" => (object)["apiKey" => "$apiKey"],
+                "credentials" => (object) ["apiKey" => "$apiKey"],
             ];
             $mock_response = MOCK_RESPONSE["updateCredentials"]["response"];
             $this->setMockObjectExpectations(
@@ -1399,18 +1187,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json",
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1421,7 +1198,7 @@ namespace Pixelbin\Tests {
 
             $credentials = ["apiKey" => $apiKey];
             $pluginId = "remove";
-            $resp = $this->pixelbinClient->assets->updateCredentials($pluginId, (object)$credentials);
+            $resp = $this->pixelbinClient->assets->updateCredentials($pluginId, (object) $credentials);
 
             $this->setUpAssertions(
                 [
@@ -1455,18 +1232,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1494,7 +1260,7 @@ namespace Pixelbin\Tests {
             $mock_data = [
                 "presetName" => "p1",
                 "transformation" => "t.flip()~t.flop()",
-                "params" => (object)[
+                "params" => (object) [
                     "w" => ["type" => "integer", "default" => 200],
                     "h" => ["type" => "integer", "default" => 400],
                 ],
@@ -1516,18 +1282,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1544,7 +1299,7 @@ namespace Pixelbin\Tests {
             $resp = $this->pixelbinClient->assets->addPreset(
                 $presetName,
                 $transformation,
-                (object)$params
+                (object) $params
             );
 
             $this->setUpAssertions(
@@ -1579,18 +1334,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1634,18 +1378,7 @@ namespace Pixelbin\Tests {
                             "Content-Type" => "application/json"
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1689,18 +1422,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1741,18 +1463,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1793,18 +1504,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]
@@ -1845,18 +1545,7 @@ namespace Pixelbin\Tests {
                             "Authorization" => $this->anything(),
                         ];
 
-                        foreach ($expected_value as $key => $value) {
-                            try {
-                                $this->assertArrayHasKey($key, $data);
-                                if ($expected_value[$key] !== anything()) {
-                                    $this->assertEquals($expected_value[$key], $data[$key]);
-                                }
-                                return true;
-                            } catch (Exception $e) {
-                                print_r($e);
-                                return false;
-                            }
-                        }
+                        return $this->checkResponseHeaders($expected_value, $data);
                     }),
                     $this->anything()
                 ]

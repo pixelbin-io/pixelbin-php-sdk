@@ -27,7 +27,6 @@ namespace Pixelbin\Common {
             $requestOptions = [
                 RequestOptions::HEADERS => $headers,
                 RequestOptions::COOKIES => $cookieJar,
-                RequestOptions::DEBUG => true
             ];
 
             if (!empty($params)) {
@@ -71,14 +70,14 @@ namespace Pixelbin\Common {
                 $responseBody["cookies"] = $cookies;
 
                 $responseBody["text"] = $response->getBody()->getContents();
-                print_r($responseBody["text"]);
                 $responseBody["content"] = json_decode($responseBody["text"], true, flags: JSON_UNESCAPED_SLASHES);
             } catch (ClientException $e) {
-                $responseBody["status_code"] = 999;
+                $responseBody["status_code"] = $e->getResponse()->getStatusCode();
                 $responseBody["error_message"] = $e->getResponse()->getBody()->getContents();
                 $responseBody["error_message"] = print_r(json_decode($responseBody["error_message"], true, flags: JSON_UNESCAPED_SLASHES), true);
             } catch (Exception $e) {
-                print_r($e);
+                $responseBody["status_code"] = 500;
+                $responseBody["error"] = $e;
             }
 
             return $responseBody;
@@ -140,7 +139,7 @@ namespace Pixelbin\Common {
                     }
                     $data = $formData;
                 } else {
-                    $data = json_encode((object)$data, JSON_UNESCAPED_SLASHES);
+                    $data = json_encode((object) $data, JSON_UNESCAPED_SLASHES);
                 }
             }
             $response = $this->makeRequestAsync($method, $url, $params, $data, $headers, $timeoutAllowed);

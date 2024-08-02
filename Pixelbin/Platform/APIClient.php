@@ -19,6 +19,16 @@ namespace Pixelbin\Platform {
         ): array {
             $token = base64_encode(mb_convert_encoding($conf->get_access_token(), "UTF-8"));
             $headers = ["Authorization" => "Bearer $token"];
+            $sdk = [
+                "name" => "pixelbin/pixelbin",
+                "version" => "0.0.4"
+            ];
+            $language = "php";
+            $userAgent = $sdk["name"] . "/" . $sdk["version"] . " (" . $language . ")";
+            if (!empty($conf->integrationPlatform)) {
+                $userAgent = $conf->integrationPlatform . " " . $userAgent;
+            }
+            $headers["User-Agent"] = $userAgent;
             $data = $contentType === "multipart/form-data" ? null : $body;
 
             if (!empty($contentType) && $contentType !== "multipart/form-data" && !empty($body))
@@ -49,7 +59,7 @@ namespace Pixelbin\Platform {
                 $query_string,
                 $headers,
                 $data,
-                ["Authorization", "Content-Type"]
+                ["Authorization", "Content-Type", "User-Agent"]
             );
             $headers_with_sign["x-ebg-param"] = base64_encode(mb_convert_encoding($headers_with_sign["x-ebg-param"], "UTF-8"));
             if (static::$helper === null)
