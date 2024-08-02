@@ -8,7 +8,7 @@ Getting started with Pixelbin Backend SDK for PHP
 
 ### Installation
 
-```
+```bash
 composer require pixelbin/pixelbin
 ```
 
@@ -35,19 +35,10 @@ $config = new PixelbinConfig([
 // Create a pixelbin instance
 $pixelbin = new PixelbinClient($config);
 
-// Sync method call
+// Method call
 try {
     $result = $pixelbin->assets->listFiles();
-    #use result
-    print_r($result);
-} catch (Exception $e) {
-    print_r($e->getMessage());
-}
-
-// Async method call
-try {
-    $result = $pixelbin->assets->listFilesAsync();
-    // use result
+    # Use result
     print_r($result);
 } catch (Exception $e) {
     print_r($e->getMessage());
@@ -87,39 +78,42 @@ use Pixelbin\Utils\Url;
 
 $pixelbinUrl = "https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=True"
 $obj = Url::url_to_obj($pixelbinUrl);
-$obj = url_to_obj(pixelbinUrl)
-// obj
-// {
-//     "cloudName": "your-cloud-name",
-//     "zone": "z-slug",
-//     "version": "v2",
-//     "options": {
-//         "dpr": 2.0,
-//         "f_auto": True,
-//     },
-//     "transformations": [
-//         {
-//             "plugin": "t",
-//             "name": "resize",
-//             "values": [
-//                 {
-//                     "key": "h",
-//                     "value": "100"
-//                 },
-//                 {
-//                     "key": "w",
-//                     "value": "200"
-//                 }
-//             ]
-//         },
-//         {
-//             "plugin": "t",
-//             "name": "flip",
-//         }
-//     ],
-//     "filePath": "path/to/image.jpeg",
-//     "baseUrl": "https://cdn.pixelbin.io"
-// }
+```
+
+Output obj stored in `$obj`:
+
+```json
+{
+    "cloudName": "your-cloud-name",
+    "zone": "z-slug",
+    "version": "v2",
+    "options": {
+        "dpr": 2.0,
+        "f_auto": true,
+    },
+    "transformations": [
+        {
+            "plugin": "t",
+            "name": "resize",
+            "values": [
+                {
+                    "key": "h",
+                    "value": "100"
+                },
+                {
+                    "key": "w",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "plugin": "t",
+            "name": "flip",
+        }
+    ],
+    "filePath": "path/to/image.jpeg",
+    "baseUrl": "https://cdn.pixelbin.io"
+}
 ```
 
 ### obj_to_url
@@ -173,11 +167,15 @@ $obj = [
     "baseUrl" => "https://cdn.pixelbin.io",
 ];
 
-$url = Url::obj_to_url($obj); // $obj is as shown above
-// url
-// https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=True
+$url = Url::obj_to_url($obj);
+```
+
+Output url stored in `$url`:
+
+```bash
+https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=True
 ```
 
 ## Documentation
 
--   [API docs](documentation/platform/README.md)
+- [API docs](documentation/platform/README.md)

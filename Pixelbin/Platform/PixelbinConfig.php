@@ -1,7 +1,7 @@
 <?php
 
 namespace Pixelbin\Platform {
-    require_once(__DIR__ . "/../autoload.php");
+    require_once (__DIR__ . "/../autoload.php");
 
     use Pixelbin\Common\Exceptions;
     use WeakReference;
@@ -14,6 +14,7 @@ namespace Pixelbin\Platform {
         public string $domain;
 
         public string $apiSecret = "";
+        public string $integrationPlatform = "";
         private WeakReference $oauthClient;
 
         /**
@@ -25,6 +26,7 @@ namespace Pixelbin\Platform {
             $this->domain = array_key_exists("domain", $config) ? $config["domain"] : DEFAULT_DOMAIN;
             $this->apiSecret = array_key_exists("apiSecret", $config) ? $config["apiSecret"] : "";
             $this->oauthClient = WeakReference::create(new OAuthClient($this));
+            $this->integrationPlatform = array_key_exists("integrationPlatform", $config) ? $config["integrationPlatform"] : "";
             $this->validate();
         }
 

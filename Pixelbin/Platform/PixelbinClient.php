@@ -38,24 +38,22 @@ namespace Pixelbin\Platform {
         string $pluginId=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($credentials !== null)
             $body["credentials"] = $credentials;
-        
+
         if ($pluginId !== null)
             $body["pluginId"] = $pluginId;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -69,6 +67,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Add credentials for a transformation module.
     *
@@ -98,24 +97,22 @@ namespace Pixelbin\Platform {
         object $credentials=null
     ): array {
         $payload = [];
-        
+
         if ($pluginId !== null)
             $payload["pluginId"] = $pluginId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($credentials !== null)
             $body["credentials"] = $credentials;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -129,6 +126,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Update credentials of a transformation module.
     *
@@ -155,21 +153,19 @@ namespace Pixelbin\Platform {
         string $pluginId=null
     ): array {
         $payload = [];
-        
+
         if ($pluginId !== null)
             $payload["pluginId"] = $pluginId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -183,11 +179,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Delete credentials of a transformation module.
     *
     * Delete credentials of a transformation module, for an organization. 
-    * @param string $pluginId ID of the plugin whose credentials are being deleted    */
+    * @param string $pluginId ID of the plugin whose credentials are being deleted
+    */
     public function deleteCredentials(
         string $pluginId=null
     ) {
@@ -205,21 +203,19 @@ namespace Pixelbin\Platform {
         string $_id=null
     ): array {
         $payload = [];
-        
+
         if ($_id !== null)
             $payload["_id"] = $_id;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -233,11 +229,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get file details with _id
     *
     * 
-    * @param string $_id _id of File    */
+    * @param string $_id _id of File
+    */
     public function getFileById(
         string $_id=null
     ) {
@@ -255,21 +253,19 @@ namespace Pixelbin\Platform {
         string $fileId=null
     ): array {
         $payload = [];
-        
+
         if ($fileId !== null)
             $payload["fileId"] = $fileId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -283,11 +279,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get file details with fileId
     *
     * 
-    * @param string $fileId Combination of `path` and `name` of file    */
+    * @param string $fileId Combination of `path` and `name` of file
+    */
     public function getFileByFileId(
         string $fileId=null
     ) {
@@ -318,39 +316,37 @@ namespace Pixelbin\Platform {
         object $metadata=null
     ): array {
         $payload = [];
-        
+
         if ($fileId !== null)
             $payload["fileId"] = $fileId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         if ($access !== null)
             $body["access"] = $access;
-        
+
         if ($isActive !== null)
             $body["isActive"] = $isActive;
-        
+
         if ($tags !== null)
             $body["tags"] = $tags;
-        
+
         if ($metadata !== null)
             $body["metadata"] = $metadata;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -364,6 +360,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Update file details
     *
@@ -405,21 +402,19 @@ namespace Pixelbin\Platform {
         string $fileId=null
     ): array {
         $payload = [];
-        
+
         if ($fileId !== null)
             $payload["fileId"] = $fileId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -433,11 +428,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Delete file
     *
     * 
-    * @param string $fileId Combination of `path` and `name`    */
+    * @param string $fileId Combination of `path` and `name`
+    */
     public function deleteFile(
         string $fileId=null
     ) {
@@ -456,21 +453,19 @@ namespace Pixelbin\Platform {
         array $ids=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($ids !== null)
             $body["ids"] = $ids;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -484,6 +479,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Delete multiple files
     *
@@ -510,24 +506,22 @@ namespace Pixelbin\Platform {
         string $path=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -541,6 +535,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Create folder
     *
@@ -569,30 +564,28 @@ namespace Pixelbin\Platform {
         string $name=null
     ): array {
         $payload = [];
-        
+
         if ($path !== null)
             $payload["path"] = $path;
-        
+
         if ($name !== null)
             $payload["name"] = $name;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
+
         if ($path !== null)
             $query_params["path"] = $path;
-        
+
         if ($name !== null)
             $query_params["name"] = $name;
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -606,12 +599,14 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get folder details
     *
     * Get folder details 
     * @param string|null $path Optional. Folder path
-    * @param string|null $name Optional. Folder name    */
+    * @param string|null $name Optional. Folder name
+    */
     public function getFolderDetails(
         string $path=null, 
         string $name=null
@@ -634,24 +629,22 @@ namespace Pixelbin\Platform {
         bool $isActive=null
     ): array {
         $payload = [];
-        
+
         if ($folderId !== null)
             $payload["folderId"] = $folderId;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($isActive !== null)
             $body["isActive"] = $isActive;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -665,6 +658,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Update folder details
     *
@@ -691,21 +685,19 @@ namespace Pixelbin\Platform {
         string $_id=null
     ): array {
         $payload = [];
-        
+
         if ($_id !== null)
             $payload["_id"] = $_id;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -719,11 +711,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Delete folder
     *
     * Delete folder and all its children permanently. 
-    * @param string $_id _id of folder to be deleted    */
+    * @param string $_id _id of folder to be deleted
+    */
     public function deleteFolder(
         string $_id=null
     ) {
@@ -741,21 +735,19 @@ namespace Pixelbin\Platform {
         string $_id=null
     ): array {
         $payload = [];
-        
+
         if ($_id !== null)
             $payload["_id"] = $_id;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -769,11 +761,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get all ancestors of a folder
     *
     * Get all ancestors of a folder, using the folder ID. 
-    * @param string $_id _id of the folder    */
+    * @param string $_id _id of the folder
+    */
     public function getFolderAncestors(
         string $_id=null
     ) {
@@ -808,72 +802,70 @@ namespace Pixelbin\Platform {
         string $sort=null
     ): array {
         $payload = [];
-        
+
         if ($name !== null)
             $payload["name"] = $name;
-        
+
         if ($path !== null)
             $payload["path"] = $path;
-        
+
         if ($format !== null)
             $payload["format"] = $format;
-        
+
         if ($tags !== null)
             $payload["tags"] = $tags;
-        
+
         if ($onlyFiles !== null)
             $payload["onlyFiles"] = $onlyFiles;
-        
+
         if ($onlyFolders !== null)
             $payload["onlyFolders"] = $onlyFolders;
-        
+
         if ($pageNo !== null)
             $payload["pageNo"] = $pageNo;
-        
+
         if ($pageSize !== null)
             $payload["pageSize"] = $pageSize;
-        
+
         if ($sort !== null)
             $payload["sort"] = $sort;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
+
         if ($name !== null)
             $query_params["name"] = $name;
-        
+
         if ($path !== null)
             $query_params["path"] = $path;
-        
+
         if ($format !== null)
             $query_params["format"] = $format;
-        
+
         if ($tags !== null)
             $query_params["tags"] = $tags;
-        
+
         if ($onlyFiles !== null)
             $query_params["onlyFiles"] = $onlyFiles;
-        
+
         if ($onlyFolders !== null)
             $query_params["onlyFolders"] = $onlyFolders;
-        
+
         if ($pageNo !== null)
             $query_params["pageNo"] = $pageNo;
-        
+
         if ($pageSize !== null)
             $query_params["pageSize"] = $pageSize;
-        
+
         if ($sort !== null)
             $query_params["sort"] = $sort;
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -887,6 +879,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * List and search files and folders.
     *
@@ -900,6 +893,7 @@ namespace Pixelbin\Platform {
     * @param int|null $pageNo Optional. Page No.
     * @param int|null $pageSize Optional. Page Size
     * @param string|null $sort Optional. Key to sort results by. A "-" suffix will sort results in descending orders.
+
     */
     public function listFiles(
         string $name=null, 
@@ -931,18 +925,16 @@ namespace Pixelbin\Platform {
     * Get default asset for playground    */
     public function getDefaultAssetForPlaygroundAsync(): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -956,10 +948,12 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get default asset for playground
     *
-    * Get default asset for playground    */
+    * Get default asset for playground
+    */
     public function getDefaultAssetForPlayground() {
         return $this->getDefaultAssetForPlaygroundAsync();
     }
@@ -970,18 +964,16 @@ namespace Pixelbin\Platform {
     * Get all transformation modules.     */
     public function getModulesAsync(): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -995,10 +987,12 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get all transformation modules
     *
-    * Get all transformation modules.     */
+    * Get all transformation modules. 
+    */
     public function getModules() {
         return $this->getModulesAsync();
     }
@@ -1012,21 +1006,19 @@ namespace Pixelbin\Platform {
         string $identifier=null
     ): array {
         $payload = [];
-        
+
         if ($identifier !== null)
             $payload["identifier"] = $identifier;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1040,11 +1032,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get Transformation Module by module identifier
     *
     * Get Transformation Module by module identifier 
-    * @param string $identifier identifier of Transformation Module    */
+    * @param string $identifier identifier of Transformation Module
+    */
     public function getModule(
         string $identifier=null
     ) {
@@ -1067,27 +1061,25 @@ namespace Pixelbin\Platform {
         object $params=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($presetName !== null)
             $body["presetName"] = $presetName;
-        
+
         if ($transformation !== null)
             $body["transformation"] = $transformation;
-        
+
         if ($params !== null)
             $body["params"] = $params;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1101,6 +1093,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Add a preset.
     *
@@ -1122,23 +1115,70 @@ namespace Pixelbin\Platform {
     }
 
     /**
-    * Get all presets.
+    * Get presets for an organization
     *
-    * Get all presets of an organization.     */
-    public function getPresetsAsync(): array {
+    * Retrieve presets for a specific organization.
+    * @param int|null $pageNo Optional. Page number
+    * @param int|null $pageSize Optional. Page size
+    * @param string|null $name Optional. Preset name
+    * @param string|null $transformation Optional. Transformation applied
+    * @param bool|null $archived Optional. Indicates whether the preset is archived or not
+    * @param array|null $sort Optional. Sort the results by a specific key    */
+    public function getPresetsAsync(
+        int $pageNo=null, 
+        int $pageSize=null, 
+        string $name=null, 
+        string $transformation=null, 
+        bool $archived=null, 
+        array $sort=null
+    ): array {
         $payload = [];
-        
+
+        if ($pageNo !== null)
+            $payload["pageNo"] = $pageNo;
+
+        if ($pageSize !== null)
+            $payload["pageSize"] = $pageSize;
+
+        if ($name !== null)
+            $payload["name"] = $name;
+
+        if ($transformation !== null)
+            $payload["transformation"] = $transformation;
+
+        if ($archived !== null)
+            $payload["archived"] = $archived;
+
+        if ($sort !== null)
+            $payload["sort"] = $sort;
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
+
+        if ($pageNo !== null)
+            $query_params["pageNo"] = $pageNo;
+
+        if ($pageSize !== null)
+            $query_params["pageSize"] = $pageSize;
+
+        if ($name !== null)
+            $query_params["name"] = $name;
+
+        if ($transformation !== null)
+            $query_params["transformation"] = $transformation;
+
+        if ($archived !== null)
+            $query_params["archived"] = $archived;
+
+        if ($sort !== null)
+            $query_params["sort"] = $sort;
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1152,12 +1192,34 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
-    * Get all presets.
+    * Get presets for an organization
     *
-    * Get all presets of an organization.     */
-    public function getPresets() {
-        return $this->getPresetsAsync();
+    * Retrieve presets for a specific organization.
+    * @param int|null $pageNo Optional. Page number
+    * @param int|null $pageSize Optional. Page size
+    * @param string|null $name Optional. Preset name
+    * @param string|null $transformation Optional. Transformation applied
+    * @param bool|null $archived Optional. Indicates whether the preset is archived or not
+    * @param array|null $sort Optional. Sort the results by a specific key
+    */
+    public function getPresets(
+        int $pageNo=null, 
+        int $pageSize=null, 
+        string $name=null, 
+        string $transformation=null, 
+        bool $archived=null, 
+        array $sort=null
+    ) {
+        return $this->getPresetsAsync(
+            pageNo:$pageNo, 
+            pageSize:$pageSize, 
+            name:$name, 
+            transformation:$transformation, 
+            archived:$archived, 
+            sort:$sort
+        );
     }
 
     /**
@@ -1172,24 +1234,22 @@ namespace Pixelbin\Platform {
         bool $archived=null
     ): array {
         $payload = [];
-        
+
         if ($presetName !== null)
             $payload["presetName"] = $presetName;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($archived !== null)
             $body["archived"] = $archived;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1203,6 +1263,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Update a preset.
     *
@@ -1229,21 +1290,19 @@ namespace Pixelbin\Platform {
         string $presetName=null
     ): array {
         $payload = [];
-        
+
         if ($presetName !== null)
             $payload["presetName"] = $presetName;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1257,11 +1316,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Delete a preset.
     *
     * Delete a preset of an organization. 
-    * @param string $presetName Name of the preset to be deleted    */
+    * @param string $presetName Name of the preset to be deleted
+    */
     public function deletePreset(
         string $presetName=null
     ) {
@@ -1279,21 +1340,19 @@ namespace Pixelbin\Platform {
         string $presetName=null
     ): array {
         $payload = [];
-        
+
         if ($presetName !== null)
             $payload["presetName"] = $presetName;
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1307,11 +1366,13 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get a preset.
     *
     * Get a preset of an organization. 
-    * @param string $presetName Name of the preset to be fetched    */
+    * @param string $presetName Name of the preset to be fetched
+    */
     public function getPreset(
         string $presetName=null
     ) {
@@ -1344,42 +1405,40 @@ namespace Pixelbin\Platform {
         bool $filenameOverride=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($file !== null)
             $body["file"] = $file;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($access !== null)
             $body["access"] = $access;
-        
+
         if ($tags !== null)
             $body["tags"] = $tags;
-        
+
         if ($metadata !== null)
             $body["metadata"] = $metadata;
-        
+
         if ($overwrite !== null)
             $body["overwrite"] = $overwrite;
-        
+
         if ($filenameOverride !== null)
             $body["filenameOverride"] = $filenameOverride;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1393,6 +1452,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Upload File
     *
@@ -1452,42 +1512,40 @@ namespace Pixelbin\Platform {
         bool $filenameOverride=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($url !== null)
             $body["url"] = $url;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($access !== null)
             $body["access"] = $access;
-        
+
         if ($tags !== null)
             $body["tags"] = $tags;
-        
+
         if ($metadata !== null)
             $body["metadata"] = $metadata;
-        
+
         if ($overwrite !== null)
             $body["overwrite"] = $overwrite;
-        
+
         if ($filenameOverride !== null)
             $body["filenameOverride"] = $filenameOverride;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1501,6 +1559,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Upload Asset with url
     *
@@ -1560,42 +1619,40 @@ namespace Pixelbin\Platform {
         bool $filenameOverride=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         if ($format !== null)
             $body["format"] = $format;
-        
+
         if ($access !== null)
             $body["access"] = $access;
-        
+
         if ($tags !== null)
             $body["tags"] = $tags;
-        
+
         if ($metadata !== null)
             $body["metadata"] = $metadata;
-        
+
         if ($overwrite !== null)
             $body["overwrite"] = $overwrite;
-        
+
         if ($filenameOverride !== null)
             $body["filenameOverride"] = $filenameOverride;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1609,6 +1666,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * S3 Signed URL upload
     *
@@ -1670,45 +1728,43 @@ namespace Pixelbin\Platform {
         int $expiry=null
     ): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         if ($name !== null)
             $body["name"] = $name;
-        
+
         if ($path !== null)
             $body["path"] = $path;
-        
+
         if ($format !== null)
             $body["format"] = $format;
-        
+
         if ($access !== null)
             $body["access"] = $access;
-        
+
         if ($tags !== null)
             $body["tags"] = $tags;
-        
+
         if ($metadata !== null)
             $body["metadata"] = $metadata;
-        
+
         if ($overwrite !== null)
             $body["overwrite"] = $overwrite;
-        
+
         if ($filenameOverride !== null)
             $body["filenameOverride"] = $filenameOverride;
-        
+
         if ($expiry !== null)
             $body["expiry"] = $expiry;
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1722,6 +1778,7 @@ namespace Pixelbin\Platform {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Signed multipart upload
     *
@@ -1775,18 +1832,16 @@ class Organization {
     * Get App and org details    */
     public function getAppOrgDetailsAsync(): array {
         $payload = [];
-        
 
         // Parameter validation
         json_decode(json_encode($payload), true);
 
         $body = [];
-        
+
         // Body validation
         json_decode(json_encode($body), true);
 
         $query_params = [];
-        
 
         $response = APIClient::execute(
             conf:$this->config,
@@ -1800,10 +1855,12 @@ class Organization {
             throw new Exceptions\PixelbinServerResponseError($response["error_message"]);
         return $response["content"];
     }
+
     /**
     * Get App Details
     *
-    * Get App and org details    */
+    * Get App and org details
+    */
     public function getAppOrgDetails() {
         return $this->getAppOrgDetailsAsync();
     }
