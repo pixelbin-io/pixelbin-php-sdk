@@ -1,11 +1,10 @@
 # Pixelbin Backend SDK CHANGELOG
 
-## 0.0.2
+## 1.0.0
 
-- Fixed issue with autoload behaviour `PixelbinConfig`.
-- Added `createSignedUrlV2Async` and `createSignedUrlV2` for signed multipart upload
+- Added Security util for url signing.
 
-## V0.0.4
+## 0.0.4
 
 ### Additions
 
@@ -21,3 +20,8 @@
 
 - Fixed issue where errors were being printed to console and not thrown out.
 - Fixed issue where entire request and response body would be printed when making successful function calls.
+
+## 0.0.2
+
+- Fixed issue with autoload behaviour `PixelbinConfig`.
+- Added `createSignedUrlV2Async` and `createSignedUrlV2` for signed multipart upload
