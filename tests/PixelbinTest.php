@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Pixelbin\Tests {
 
-    require_once (__DIR__ . "/test_utils.php");
+    require_once(__DIR__ . "/test_utils.php");
 
     use PHPUnit\Framework\MockObject\MockObject;
-    use Pixelbin\Utils\Url;
+    use Pixelbin\Utils\{
+        Url,
+        Security,
+    };
     use Pixelbin\Common\{
         Exceptions,
         GuzzleHttpHelper,
@@ -123,7 +126,6 @@ namespace Pixelbin\Tests {
             $this->fail("Expected Exceptions\PixelbinInvalidCredentialError was not thrown.");
         }
 
-
         public function test_pixelbin_config_token_2(): void
         {
             try {
@@ -169,7 +171,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->createFolder(
                 name: $this->folder_name,
                 path: $this->folder_path
@@ -187,13 +188,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testFileUploadCase1()
         {
-            $form_data = [
-                "file" => $this->anything()
-            ];
-
             $mock_response = MOCK_RESPONSE["fileUpload1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -216,7 +212,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $file = __DIR__ . "/1.jpeg";
             $resp = $this->pixelbinClient->assets->fileUpload(
                 file: fopen($file, "r"),
@@ -233,7 +228,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testFileUploadCase2()
         {
@@ -261,7 +255,6 @@ namespace Pixelbin\Tests {
                     $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->fileUpload(
                 file: fopen($file, "r"),
@@ -313,7 +306,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getFileById(
                 _id: $_id,
             );
@@ -330,10 +322,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testListFilesCase1()
         {
-
             $mock_response = MOCK_RESPONSE["listFiles1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -371,10 +361,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testListFilesCase2()
         {
-
             $mock_response = MOCK_RESPONSE["listFiles2"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -408,7 +396,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->listFiles(
                 name: "1",
                 path: $this->folder_name,
@@ -432,7 +419,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUrlUpload()
         {
@@ -469,7 +455,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $tags = ["cat", "animal"];
             $url = "https://www.fetchfind.com/blog/wp-content/uploads/2017/08/cat-2734999_1920-5-common-cat-sounds.jpg";
             $resp = $this->pixelbinClient->assets->urlUpload(
@@ -495,10 +480,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testCreateSignedUrlCase1()
         {
-
             $mock_response = MOCK_RESPONSE["createSignedURL1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -521,7 +504,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->createSignedUrl();
 
             $this->setUpAssertions(
@@ -535,7 +517,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testCreateSignedUrlCase2()
         {
@@ -571,7 +552,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $data = [
                 "name" => "1",
                 "path" => $this->folder_name,
@@ -596,7 +576,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUpdateFileCase1()
         {
@@ -625,7 +604,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $fileId = "1";
             $name = "1_";
             $data = [
@@ -645,7 +623,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUpdateFileCase2()
         {
@@ -679,7 +656,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $fileId = $this->folder_name . "/1";
             $name = $this->folder_name . "_";
             $tags = ["updated-tag1", "updated-tag2"];
@@ -706,10 +682,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetFileByFileId()
         {
-
             $mock_response = MOCK_RESPONSE["getFileByFileId"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -732,7 +706,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $fileId = $this->folder_name . "/2";
 
             $resp = $this->pixelbinClient->assets->getFileByFileId($fileId);
@@ -749,10 +722,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testDeleteFile()
         {
-
             $mock_response = MOCK_RESPONSE["deleteFile"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -775,7 +746,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $fileId = "1_";
 
             $resp = $this->pixelbinClient->assets->deleteFile($fileId);
@@ -791,7 +761,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testDeleteFiles()
         {
@@ -825,7 +794,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $_ids = [
                 "745f0ab2-bf8e-4933-8acb-b526e74525d7",
                 "e63ce0c2-3c56-4836-8e25-5e862cb156d8",
@@ -849,7 +817,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUpdateFolder()
         {
@@ -879,7 +846,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $folderId = $this->folder_name;
             $resp = $this->pixelbinClient->assets->updateFolder($folderId, true);
 
@@ -895,10 +861,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetFolderDetails()
         {
-
             $mock_response = MOCK_RESPONSE["getFolderDetails"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -924,7 +888,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $name = $this->folder_name;
             $data = [
                 "name" => $name,
@@ -943,7 +906,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testGetFolderAncestors()
         {
@@ -970,7 +932,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
 
             $resp = $this->pixelbinClient->assets->getFolderAncestors($folder_id);
@@ -986,7 +947,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testDeleteFolder()
         {
@@ -1013,7 +973,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
 
             $resp = $this->pixelbinClient->assets->deleteFolder($folder_id);
@@ -1030,10 +989,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetModules()
         {
-
             $mock_response = MOCK_RESPONSE["getModules"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1056,7 +1013,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getModules();
 
             $this->setUpAssertions(
@@ -1071,10 +1027,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetModule()
         {
-
             $mock_response = MOCK_RESPONSE["getModule"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1097,7 +1051,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getModule(identifier: "erase");
 
             $this->setUpAssertions(
@@ -1111,7 +1064,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testAddCredentials()
         {
@@ -1143,7 +1095,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_response = MOCK_RESPONSE["addCredentials"]["response"];
 
@@ -1162,7 +1113,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUpdateCredentials()
         {
@@ -1193,7 +1143,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
 
             $credentials = ["apiKey" => $apiKey];
@@ -1212,10 +1161,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testDeleteCredentials()
         {
-
             $mock_response = MOCK_RESPONSE["deleteCredentials"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1238,7 +1185,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $pluginId = "remove";
             $resp = $this->pixelbinClient->assets->deleteCredentials($pluginId);
 
@@ -1253,7 +1199,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testAddPreset()
         {
@@ -1288,7 +1233,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $presetName = "p1";
             $transformation = "t.flip()~t.flop()";
             $params = [
@@ -1314,10 +1258,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetPresets()
         {
-
             $mock_response = MOCK_RESPONSE["getPresets"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1340,7 +1282,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getPresets();
 
             $this->setUpAssertions(
@@ -1354,7 +1295,6 @@ namespace Pixelbin\Tests {
                 ]
             );
         }
-
 
         public function testUpdatePresets()
         {
@@ -1384,7 +1324,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->updatePreset(
                 presetName: "p1",
                 archived: true
@@ -1402,10 +1341,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetPreset()
         {
-
             $mock_response = MOCK_RESPONSE["getPreset"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1428,7 +1365,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getPreset(presetName: "p1");
 
             $this->setUpAssertions(
@@ -1443,10 +1379,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testDeletePreset()
         {
-
             $mock_response = MOCK_RESPONSE["deletePreset"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1469,7 +1403,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->deletePreset(presetName: "p1");
 
             $this->setUpAssertions(
@@ -1484,10 +1417,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetDefaultAssetForPlayground()
         {
-
             $mock_response = MOCK_RESPONSE["getDefaultAssetForPlayground"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1510,7 +1441,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->assets->getDefaultAssetForPlayground();
 
             $this->setUpAssertions(
@@ -1525,10 +1455,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testGetAppOrgDetails()
         {
-
             $mock_response = MOCK_RESPONSE["getAppOrgDetails"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1551,7 +1479,6 @@ namespace Pixelbin\Tests {
                 ]
             );
 
-
             $resp = $this->pixelbinClient->organization->getAppOrgDetails();
 
             $this->setUpAssertions(
@@ -1566,7 +1493,6 @@ namespace Pixelbin\Tests {
             );
         }
 
-
         public function testUrlToObj()
         {
             foreach ($this->urls_to_obj as $case) {
@@ -1576,7 +1502,6 @@ namespace Pixelbin\Tests {
                 $this->assertEquals($expectedObj, $obj);
             }
         }
-
 
         public function testObjToUrl()
         {
@@ -1608,12 +1533,8 @@ namespace Pixelbin\Tests {
             Url::obj_to_url($obj);
         }
 
-
         public function testFailureForOptionFautoQueryParam()
         {
-            // require_once 'pixelbin/common/exceptions.php';
-            // require_once 'pixelbin/utils/url.php';
-
             $obj = [
                 "baseUrl" => "https://cdn.pixelbin.io",
                 "filePath" => "__playground/playground-default.jpeg",
@@ -1626,6 +1547,92 @@ namespace Pixelbin\Tests {
 
             $this->expectException(Exceptions\PixelbinIllegalQueryParameterError::class);
             Url::obj_to_url($obj);
+        }
+
+        public function testSignUrl()
+        {
+            $signedURL = Security::signURL(
+                "https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg",
+                20,
+                "459337ed-f378-4ddf-bad7-d7a4555c4572",
+                "dummy-token",
+            );
+
+            $signedUrlObj = parse_url($signedURL);
+            parse_str($signedUrlObj["query"], $searchParams);
+
+            $keys = ['pbs', 'pbe', 'pbt'];
+
+            foreach ($keys as $idx => $value) {
+                $key = $keys[$idx];
+                $this->assertTrue(isset($searchParams[$key]), "$key searchParam should be present");
+            }
+        }
+
+        public function testSignUrlWithQuery()
+        {
+            $signedURL = Security::signURL(
+                "https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg?testquery1=testval&testquery2=testval",
+                20,
+                "459337ed-f378-4ddf-bad7-d7a4555c4572",
+                "dummy-token",
+            );
+
+            $signedUrlObj = parse_url($signedURL);
+            parse_str($signedUrlObj["query"], $searchParams);
+
+            $keys = ['pbs', 'pbe', 'pbt'];
+
+            foreach ($keys as $idx => $value) {
+                $key = $keys[$idx];
+                $this->assertTrue(isset($searchParams[$key]), "$key searchParam should be present");
+                if (str_contains($key, "testquery"))
+                    $this->assertEquals("testval", $value);
+            }
+        }
+
+        public function testSignUrlCustomDomain()
+        {
+            $signedURL = Security::signURL(
+                "https://krit.imagebin.io/v2/original/__playground/playground-default.jpeg",
+                20,
+                "08040485-dc83-450b-9e1f-f1040044ae3f",
+                "dummy-token-2",
+            );
+
+            $signedUrlObj = parse_url($signedURL);
+            parse_str($signedUrlObj["query"], $searchParams);
+
+            $keys = ['pbs', 'pbe', 'pbt'];
+
+            foreach ($keys as $idx => $value) {
+                $key = $keys[$idx];
+                $this->assertTrue(isset($searchParams[$key]), "$key searchParam should be present");
+            }
+        }
+
+        public function testFailureWhenEmptyUrlProvided()
+        {
+            $this->expectException(Exceptions\PixelbinIllegalArgumentError::class);
+            Security::signURL("", 20, "1", "dummy-token");
+        }
+
+        public function testFailureWhenEmptyAccessKeyProvided()
+        {
+            $this->expectException(Exceptions\PixelbinIllegalArgumentError::class);
+            Security::signURL("https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg", 20, "", "dummy-token");
+        }
+
+        public function testFailureWhenEmptyTokenProvided()
+        {
+            $this->expectException(Exceptions\PixelbinIllegalArgumentError::class);
+            Security::signURL("https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg", 20, "1", "");
+        }
+
+        public function testFailureWhenEmptyExpirySecondsProvided()
+        {
+            $this->expectException(\TypeError::class);
+            Security::signURL("https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg", null, "1", "dummy-token");
         }
     }
 }
