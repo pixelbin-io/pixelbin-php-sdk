@@ -29,6 +29,7 @@ use Pixelbin\Platform\PixelbinConfig;
 $config = new PixelbinConfig([
     "domain" => "https://api.pixelbin.io",
     "apiSecret" => "API_TOKEN",
+    "integrationPlatform"=> "YourAppName/1.0 (AppPlatform/2.0)", // this is optional
 ]);
 
 // Create a pixelbin instance
