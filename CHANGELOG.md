@@ -3,10 +3,6 @@
 ## 1.0.0
 
 - Added Security util for url signing.
-- Added [upload](./README.md#upload) method.
-- Removed support for signature generation for APIs.
-- Added support for parsing Custom Domains in `obj_to_url` and `url_to_obj`
-- Improved support for worker urls in `obj_to_url` and `url_to_obj`
 
 ## 0.0.4
 

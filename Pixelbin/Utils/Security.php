@@ -3,6 +3,7 @@
 namespace Pixelbin\Utils {
 
     use Pixelbin\Common\Exceptions;
+    use Exception;
 
     class Security
     {
@@ -37,20 +38,17 @@ namespace Pixelbin\Utils {
         private static function generateSignedURL(string $url, float $expirySeconds, string $accessKey, string $token)
         {
             if (empty($url) || empty($accessKey) || empty($token) || empty($expirySeconds))
-                throw new Exceptions\PDKIllegalArgumentError("url, accessKey, token & expirySeconds are required for generating signed URL");
+                throw new Exceptions\PixelbinIllegalArgumentError("url, accessKey, token & expirySeconds are required for generating signed URL");
 
             if (!(gettype($expirySeconds) === "double"))
-                throw new Exceptions\PDKIllegalArgumentError("Expected expirySeconds to be a Number. Got " . gettype($expirySeconds) . " instead");
+                throw new Exceptions\PixelbinIllegalArgumentError("Expected expirySeconds to be a Number. Got " . gettype($expirySeconds) . " instead");
 
             $urlObj = parse_url($url);
             $urlPath = $urlObj["path"] ?? "";
             $urlPath .= isset($urlObj["query"]) ? "?" . $urlObj["query"] : "";
-            $urlQuery = [];
-            if (isset($urlObj["query"]))
-                parse_str($urlObj["query"], $urlQuery);
 
             if (isset($urlObj["query"]) && strpos($urlObj["query"], "pbs=") !== false)
-                throw new Exceptions\PDKIllegalArgumentError("URL already has a signature");
+                throw new Exceptions\PixelbinIllegalArgumentError("URL already has a signature");
 
             $expiryTimestamp = time() + $expirySeconds;
 
@@ -60,7 +58,6 @@ namespace Pixelbin\Utils {
                 "pbs" => $signature,
                 "pbe" => $expiryTimestamp,
                 "pbt" => $accessKey,
-                ...$urlQuery
             ];
 
             $queryString = http_build_query($queryParams);

@@ -19,7 +19,10 @@ namespace Pixelbin\Platform {
         ): array {
             $token = base64_encode(mb_convert_encoding($conf->get_access_token(), "UTF-8"));
             $headers = ["Authorization" => "Bearer $token"];
-            $sdk = Utils::getSdkDetails();
+            $sdk = [
+                "name" => "pixelbin/pixelbin",
+                "version" => "0.0.4"
+            ];
             $language = "php";
             $userAgent = $sdk["name"] . "/" . $sdk["version"] . " (" . $language . ")";
             if (!empty($conf->integrationPlatform)) {
@@ -48,26 +51,20 @@ namespace Pixelbin\Platform {
                 $query = $get_params;
             }
 
-            //
-            // Skipping signature check for URLS starting with `/service/platform/` i.e. platform APIs of all services.
-            //
-            // $query_string = Utils::create_query_string($query);
-            // $headers_with_sign = Utils::add_signature_to_headers(
-            //     $conf->domain,
-            //     $method,
-            //     $url,
-            //     $query_string,
-            //     $headers,
-            //     $data,
-            //     ["Authorization", "Content-Type", "User-Agent"]
-            // );
-            // $headers_with_sign["x-ebg-param"] = base64_encode(mb_convert_encoding($headers_with_sign["x-ebg-param"], "UTF-8"));
-
-            $host = str_replace("http://", "", str_replace("https://", "", $conf->domain));
-            $headers["host"] = $host;
+            $query_string = Utils::create_query_string($query);
+            $headers_with_sign = Utils::add_signature_to_headers(
+                $conf->domain,
+                $method,
+                $url,
+                $query_string,
+                $headers,
+                $data,
+                ["Authorization", "Content-Type", "User-Agent"]
+            );
+            $headers_with_sign["x-ebg-param"] = base64_encode(mb_convert_encoding($headers_with_sign["x-ebg-param"], "UTF-8"));
             if (static::$helper === null)
                 static::$helper = new GuzzleHttpHelper();
-            return static::$helper->request($method, $conf->domain . $url, $query, $body, $headers);
+            return static::$helper->request($method, $conf->domain . $url, $query, $body, $headers_with_sign);
         }
     }
 }

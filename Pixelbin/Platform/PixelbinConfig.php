@@ -1,7 +1,7 @@
 <?php
 
 namespace Pixelbin\Platform {
-    require_once(__DIR__ . "/../autoload.php");
+    require_once (__DIR__ . "/../autoload.php");
 
     use Pixelbin\Common\Exceptions;
     use WeakReference;
@@ -47,11 +47,11 @@ namespace Pixelbin\Platform {
         private function validate(): void
         {
             if (empty($this->apiSecret)) {
-                throw new Exceptions\PDKInvalidCredentialError("No API Secret Token Present");
+                throw new Exceptions\PixelbinInvalidCredentialError("No API Secret Token Present");
             }
 
             if (strlen($this->apiSecret) < APPLICATION_MIN_TOKEN_LENGTH) {
-                throw new Exceptions\PDKInvalidCredentialError("Invalid API Secret Token");
+                throw new Exceptions\PixelbinInvalidCredentialError("Invalid API Secret Token");
             }
         }
     }

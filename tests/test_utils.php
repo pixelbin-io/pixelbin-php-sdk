@@ -44,7 +44,7 @@ namespace Pixelbin\Tests {
                     ],
                     "external_call_request_time" => '2023-03-06 14:53:46.285504+05:30',
                     "status_code" => 200,
-                    "text" => '{"orgId":782,"type":"file","name":"1","path":"","fileId":"1","access":"public-read","tags":[],"metadata":{"source":"direct"},"format":"webp","assetType":"image","size":11732,"width":400,"height":301,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":11732,"height":301,"width":400,"format":"webp","assetType":"image"}},"_id":"dc3b97a3-cb18-40f7-8d49-3ece7429970a","url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1.webp"}',
+                    "text" => '{"orgId":782,"type":"file","name":"1","path":"","fileId":"1","access":"public-read","tags":[],"metadata":{"source":"direct"},"format":"webp","assetType":"image","size":11732,"width":400,"height":301,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":11732,"height":301,"width":400,"format":"webp","assetType":"image"}},"_id":"dc3b97a3-cb18-40f7-8d49-3ece7429970a","url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1.webp"}',
                     "headers" => [
                         "Date" => 'Mon, 06 Mar 2023 09:23:46 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -87,7 +87,7 @@ namespace Pixelbin\Tests {
                             ],
                         ],
                         "_id" => 'dc3b97a3-cb18-40f7-8d49-3ece7429970a',
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1.webp',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1.webp',
                     ],
                 ],
             ],
@@ -111,7 +111,7 @@ namespace Pixelbin\Tests {
                     ],
                     "external_call_request_time" => '2023-03-06 15:20:16.997462+05:30',
                     "status_code" => 200,
-                    "text" => '{"orgId":782,"type":"file","name":"1","path":"testdir","fileId":"testdir/1","access":"public-read","tags":["tag1","tag2"],"metadata":{"source":"direct"},"format":"webp","assetType":"image","size":11732,"width":400,"height":301,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":11732,"height":301,"width":400,"format":"webp","assetType":"image"}},"_id":"74d4f5ac-e6af-4bfe-af3e-234e833dc74e","url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/1.webp"}',
+                    "text" => '{"orgId":782,"type":"file","name":"1","path":"testdir","fileId":"testdir/1","access":"public-read","tags":["tag1","tag2"],"metadata":{"source":"direct"},"format":"webp","assetType":"image","size":11732,"width":400,"height":301,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":11732,"height":301,"width":400,"format":"webp","assetType":"image"}},"_id":"74d4f5ac-e6af-4bfe-af3e-234e833dc74e","url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/1.webp"}',
                     "headers" => [
                         "Date" => 'Mon, 06 Mar 2023 09:50:17 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -157,7 +157,7 @@ namespace Pixelbin\Tests {
                             ],
                         ],
                         "_id" => '74d4f5ac-e6af-4bfe-af3e-234e833dc74e',
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/1.webp',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/1.webp',
                     ],
                 ],
             ],
@@ -168,7 +168,7 @@ namespace Pixelbin\Tests {
                     "params" => [],
                     "external_call_request_time" => '2023-03-16 16:05:12.661962+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"9d331030-b695-475e-9d4a-a660696d5fa5","name":"2","path":"","fileId":"2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/dawn-rain-2883/original/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-09T13:05:49.420Z","updatedAt":"2023-03-09T13:05:49.420Z"}',
+                    "text" => '{"_id":"9d331030-b695-475e-9d4a-a660696d5fa5","name":"2","path":"","fileId":"2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-09T13:05:49.420Z","updatedAt":"2023-03-09T13:05:49.420Z"}',
                     "headers" => [
                         "Date" => 'Thu, 16 Mar 2023 10:35:12 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -194,7 +194,7 @@ namespace Pixelbin\Tests {
                         "metadata" => [
                             "source" => 'direct',
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/dawn-rain-2883/original/2.jpeg',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/2.jpeg',
                         "meta" => [],
                         "kvStore" => [],
                         "height" => 760,
@@ -211,7 +211,7 @@ namespace Pixelbin\Tests {
                     "params" => [],
                     "external_call_request_time" => '2023-03-06 15:46:07.650606+05:30',
                     "status_code" => 200,
-                    "text" => '{"items":[{"_id":"24e57515-3b15-48a3-865f-c227488498cf","createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-06T10:13:07.315Z","fileId":"1","path":"","name":"1","format":"png","assetType":"image","type":"file","size":155108,"tags":[],"metadata":{"source":"direct"},"access":"public-read","width":500,"height":500,"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1.png"}],"page":{"type":"number","size":1,"current":1,"hasNext":false,"itemTotal":1}}',
+                    "text" => '{"items":[{"_id":"24e57515-3b15-48a3-865f-c227488498cf","createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-06T10:13:07.315Z","fileId":"1","path":"","name":"1","format":"png","assetType":"image","type":"file","size":155108,"tags":[],"metadata":{"source":"direct"},"access":"public-read","width":500,"height":500,"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1.png"}],"page":{"type":"number","size":1,"current":1,"hasNext":false,"itemTotal":1}}',
                     "headers" => [
                         "Date" => 'Mon, 06 Mar 2023 10:16:07 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -243,7 +243,7 @@ namespace Pixelbin\Tests {
                                 "access" => 'public-read',
                                 "width" => 500,
                                 "height" => 500,
-                                "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1.png',
+                                "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1.png',
                             ],
                         ],
                         "page" => [
@@ -311,7 +311,7 @@ namespace Pixelbin\Tests {
                     ],
                     "external_call_request_time" => '2023-03-07 10:56:42.007639+05:30',
                     "status_code" => 200,
-                    "text" => '{"orgId":782,"type":"file","name":"2","path":"testdir","fileId":"testdir/2","access":"public-read","tags":["cat","animal"],"metadata":{"source":"direct"},"format":"jpeg","assetType":"image","size":388253,"width":1920,"height":1440,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":388253,"height":1440,"width":1920,"format":"jpeg","assetType":"image"}},"_id":"682770a5-c80f-4413-942c-dbc0c4585559","url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/2.jpeg"}',
+                    "text" => '{"orgId":782,"type":"file","name":"2","path":"testdir","fileId":"testdir/2","access":"public-read","tags":["cat","animal"],"metadata":{"source":"direct"},"format":"jpeg","assetType":"image","size":388253,"width":1920,"height":1440,"context":{"steps":[],"req":{"headers":{},"query":{}},"meta":{"size":388253,"height":1440,"width":1920,"format":"jpeg","assetType":"image"}},"_id":"682770a5-c80f-4413-942c-dbc0c4585559","url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/2.jpeg"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 05:26:44 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -357,7 +357,7 @@ namespace Pixelbin\Tests {
                             ],
                         ],
                         "_id" => '682770a5-c80f-4413-942c-dbc0c4585559',
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/2.jpeg',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/2.jpeg',
                     ],
                 ],
             ],
@@ -459,7 +459,7 @@ namespace Pixelbin\Tests {
                     ],
                     "external_call_request_time" => '2023-03-07 11:35:30.451516+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"24e57515-3b15-48a3-865f-c227488498cf","name":"1_","path":"","fileId":"1_","format":"png","assetType":"image","access":"public-read","size":155108,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-07T06:05:30.548Z"}',
+                    "text" => '{"_id":"24e57515-3b15-48a3-865f-c227488498cf","name":"1_","path":"","fileId":"1_","format":"png","assetType":"image","access":"public-read","size":155108,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-07T06:05:30.548Z"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 06:05:30 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -485,7 +485,7 @@ namespace Pixelbin\Tests {
                         "metadata" => [
                             "source" => 'direct',
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1_.png',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1_.png',
                         "meta" => [],
                         "kvStore" => [],
                         "height" => 500,
@@ -515,7 +515,7 @@ namespace Pixelbin\Tests {
                     ],
                     "external_call_request_time" => '2023-03-07 11:49:59.273839+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"9b95ddff-9bef-4a67-a1b1-01c7905eaf23","name":"testdir_","path":"testdir","fileId":"testdir/testdir_","format":"png","assetType":"image","access":"private","size":155108,"isActive":true,"tags":["updated-tag1","updated-tag2"],"metadata":{"key":"value"},"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/testdir_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-07T06:19:47.949Z","updatedAt":"2023-03-07T06:19:59.404Z"}',
+                    "text" => '{"_id":"9b95ddff-9bef-4a67-a1b1-01c7905eaf23","name":"testdir_","path":"testdir","fileId":"testdir/testdir_","format":"png","assetType":"image","access":"private","size":155108,"isActive":true,"tags":["updated-tag1","updated-tag2"],"metadata":{"key":"value"},"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/testdir_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-07T06:19:47.949Z","updatedAt":"2023-03-07T06:19:59.404Z"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 06:19:59 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -544,7 +544,7 @@ namespace Pixelbin\Tests {
                         "metadata" => [
                             "key" => 'value',
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/testdir_.png',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/testdir_.png',
                         "meta" => [],
                         "kvStore" => [],
                         "height" => 500,
@@ -561,7 +561,7 @@ namespace Pixelbin\Tests {
                     "params" => [],
                     "external_call_request_time" => '2023-03-07 12:05:34.546909+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"044ed804-c165-4f7f-87e4-77dd75633a3f","name":"2","path":"testdir","fileId":"testdir/2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-07T06:29:37.721Z","updatedAt":"2023-03-07T06:29:37.721Z"}',
+                    "text" => '{"_id":"044ed804-c165-4f7f-87e4-77dd75633a3f","name":"2","path":"testdir","fileId":"testdir/2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-07T06:29:37.721Z","updatedAt":"2023-03-07T06:29:37.721Z"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 06:35:34 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -587,7 +587,7 @@ namespace Pixelbin\Tests {
                         "metadata" => [
                             "source" => 'direct',
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/testdir/2.jpeg',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/testdir/2.jpeg',
                         "meta" => [],
                         "kvStore" => [],
                         "height" => 760,
@@ -604,7 +604,7 @@ namespace Pixelbin\Tests {
                     "params" => [],
                     "external_call_request_time" => '2023-03-07 12:11:14.561397+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"24e57515-3b15-48a3-865f-c227488498cf","name":"1_","path":"","fileId":"1_","format":"png","assetType":"image","access":"public-read","size":155108,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-07T06:41:04.540Z"}',
+                    "text" => '{"_id":"24e57515-3b15-48a3-865f-c227488498cf","name":"1_","path":"","fileId":"1_","format":"png","assetType":"image","access":"public-read","size":155108,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1_.png","meta":{},"kvStore":[],"height":500,"width":500,"createdAt":"2023-03-06T10:13:07.315Z","updatedAt":"2023-03-07T06:41:04.540Z"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 06:41:14 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -630,7 +630,7 @@ namespace Pixelbin\Tests {
                         "metadata" => [
                             "source" => 'direct',
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/1_.png',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/1_.png',
                         "meta" => [],
                         "kvStore" => [],
                         "height" => 500,
@@ -648,7 +648,7 @@ namespace Pixelbin\Tests {
                     "data" => '{"ids":["9d331030-b695-475e-9d4a-a660696d5fa5","aaf3f9c4-18bc-4aa5-8cac-2c45dd8df889"]}',
                     "external_call_request_time" => '2023-03-16 16:12:05.509864+05:30',
                     "status_code" => 200,
-                    "text" => '[{"_id":"9d331030-b695-475e-9d4a-a660696d5fa5","name":"2","path":"","fileId":"2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/dawn-rain-2883/original/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-09T13:05:49.420Z","updatedAt":"2023-03-09T13:05:49.420Z"},{"_id":"aaf3f9c4-18bc-4aa5-8cac-2c45dd8df889","name":"download_copy_4_2","path":"","fileId":"download_copy_4_2","format":"png","assetType":"image","access":"public-read","size":3055718,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbin.io/v2/dawn-rain-2883/original/download_copy_4_2.png","meta":{},"kvStore":[],"height":960,"width":1440,"createdAt":"2023-03-09T12:43:35.570Z","updatedAt":"2023-03-09T12:43:35.570Z"}]',
+                    "text" => '[{"_id":"9d331030-b695-475e-9d4a-a660696d5fa5","name":"2","path":"","fileId":"2","format":"jpeg","assetType":"image","access":"public-read","size":62511,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/2.jpeg","meta":{},"kvStore":[],"height":760,"width":1140,"createdAt":"2023-03-09T13:05:49.420Z","updatedAt":"2023-03-09T13:05:49.420Z"},{"_id":"aaf3f9c4-18bc-4aa5-8cac-2c45dd8df889","name":"download_copy_4_2","path":"","fileId":"download_copy_4_2","format":"png","assetType":"image","access":"public-read","size":3055718,"isActive":true,"tags":[],"metadata":{"source":"direct"},"url":"https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/download_copy_4_2.png","meta":{},"kvStore":[],"height":960,"width":1440,"createdAt":"2023-03-09T12:43:35.570Z","updatedAt":"2023-03-09T12:43:35.570Z"}]',
                     "headers" => [
                         "Date" => 'Thu, 16 Mar 2023 10:42:05 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -675,7 +675,7 @@ namespace Pixelbin\Tests {
                             "metadata" => [
                                 "source" => 'direct',
                             ],
-                            "url" => 'https://cdn.pixelbin.io/v2/dawn-rain-2883/original/2.jpeg',
+                            "url" => 'https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/2.jpeg',
                             "meta" => [],
                             "kvStore" => [],
                             "height" => 760,
@@ -697,7 +697,7 @@ namespace Pixelbin\Tests {
                             "metadata" => [
                                 "source" => 'direct',
                             ],
-                            "url" => 'https://cdn.pixelbin.io/v2/dawn-rain-2883/original/download_copy_4_2.png',
+                            "url" => 'https://cdn.pixelbinx0.de/v2/dawn-rain-2883/original/download_copy_4_2.png',
                             "meta" => [],
                             "kvStore" => [],
                             "height" => 960,
@@ -1268,7 +1268,7 @@ namespace Pixelbin\Tests {
                     "params" => [],
                     "external_call_request_time" => '2023-03-07 16:36:33.127599+05:30',
                     "status_code" => 200,
-                    "text" => '{"_id":"8bdbd34b-80f8-4dad-967c-b30d6f70f83b","createdAt":"2023-03-07T06:45:16.841Z","updatedAt":"2023-03-07T06:45:16.841Z","isActive":true,"orgId":"782","type":"file","name":"playground-default","path":"__playground","fileId":"__playground/playground-default","format":"jpeg","size":218409,"tags":[],"metadata":{"source":"direct"},"access":"public-read","width":1140,"height":760,"meta":{},"kvStore":{},"context":{"req":{"query":{},"headers":{}},"meta":{"size":218409,"width":1140,"format":"jpeg","height":760},"steps":[]},"assetType":null,"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/__playground/playground-default.jpeg"}',
+                    "text" => '{"_id":"8bdbd34b-80f8-4dad-967c-b30d6f70f83b","createdAt":"2023-03-07T06:45:16.841Z","updatedAt":"2023-03-07T06:45:16.841Z","isActive":true,"orgId":"782","type":"file","name":"playground-default","path":"__playground","fileId":"__playground/playground-default","format":"jpeg","size":218409,"tags":[],"metadata":{"source":"direct"},"access":"public-read","width":1140,"height":760,"meta":{},"kvStore":{},"context":{"req":{"query":{},"headers":{}},"meta":{"size":218409,"width":1140,"format":"jpeg","height":760},"steps":[]},"assetType":null,"url":"https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/__playground/playground-default.jpeg"}',
                     "headers" => [
                         "Date" => 'Tue, 07 Mar 2023 11:06:33 GMT',
                         "Content-Type" => 'application/json; charset=utf-8',
@@ -1314,45 +1314,9 @@ namespace Pixelbin\Tests {
                             ],
                             "steps" => [],
                         ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/__playground/playground-default.jpeg',
+                        "url" => 'https://cdn.pixelbinx0.de/v2/shrill-bread-710314/original/__playground/playground-default.jpeg',
                     ],
                 ],
-            ],
-            "createSignedUrlV2Case1" => [
-                "response" => [
-                    "url" => "https://api.pixelbin.io/service/platform/assets/v2.0/upload/signed-url",
-                    "method" => "post",
-                    "params" => [],
-                    "data" => [],
-                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
-                    "status_code" => 200,
-                    "text" => '{"presignedUrl":{"url":"https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6","fields":{"x-pixb-meta-assetdata":"{\\"orgId\\":3308,\\"type\\":\\"file\\",\\"name\\":\\"asset-8WhaVptV2.jpeg\\",\\"path\\":\\"\\",\\"fileId\\":\\"asset-8WhaVptV2.jpeg\\",\\"format\\":\\"jpeg\\",\\"s3Bucket\\":\\"erase-erase-erasebg-assets\\",\\"s3Key\\":\\"uploads/shiny-tree-8df4f8/original/13859f04-3dc0-4aca-a762-263108fb0323.jpeg\\",\\"access\\":\\"public-read\\",\\"tags\\":[],\\"metadata\\":{\\"source\\":\\"signedUrl\\",\\"publicUploadId\\":\\"376a20ef-cf61-469d-a90f-c35177cc1dd6\\"},\\"overwrite\\":false,\\"filenameOverride\\":false}"}}}',
-                    "headers" => [
-                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
-                        "Content-Type" => "application/json; charset=utf-8",
-                        "Transfer-Encoding" => "chunked",
-                        "Connection" => "keep-alive",
-                        "x-powered-by" => "Express",
-                        "Vary" => "Origin",
-                        "Access-Control-Allow-Credentials" => "true",
-                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
-                        "Etag" => 'W/"301-h/aPj95C/FhjvyhIw0tqK5Kjt3M"',
-                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
-                        "Via" => "1.1 google",
-                        "CF-Cache-Status" => "DYNAMIC",
-                        "Server" => "cloudflare",
-                        "CF-RAY" => "86332f76fd95f2ef-BOM",
-                        "Content-Encoding" => "gzip",
-                    ],
-                    "cookies" => [],
-                    "error_message" => "",
-                    "content" => [
-                        "presignedUrl" => [
-                            "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
-                            "fields" => ["x-pixb-meta-assetdata" => "{\"orgId\":3308,\"type\":\"file\",\"name\":\"asset-8WhaVptV2.jpeg\",\"path\":\"\",\"fileId\":\"asset-8WhaVptV2.jpeg\",\"format\":\"jpeg\",\"s3Bucket\":\"erase-erase-erasebg-assets\",\"s3Key\":\"uploads/shiny-tree-8df4f8/original/13859f04-3dc0-4aca-a762-263108fb0323.jpeg\",\"access\":\"public-read\",\"tags\":[],\"metadata\":{\"source\":\"signedUrl\",\"publicUploadId\":\"376a20ef-cf61-469d-a90f-c35177cc1dd6\"},\"overwrite\":false,\"filenameOverride\":false}"]
-                        ]
-                    ],
-                ]
             ],
             "getAppOrgDetails" => [
                 "response" => [
@@ -1398,66 +1362,6 @@ namespace Pixelbin\Tests {
                     ],
                 ],
             ],
-            "signedUrlChunkUpload" => [
-                "response" => [
-                    "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
-                    "method" => "put",
-                    "params" => [],
-                    "data" => [],
-                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
-                    "status_code" => 204,
-                    "content" => "{\"status\":\"success\"}",
-                    "headers" => [
-                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
-                        "Content-Type" => "application/json; charset=utf-8",
-                        "Transfer-Encoding" => "chunked",
-                        "Connection" => "keep-alive",
-                        "x-powered-by" => "Express",
-                        "Vary" => "Origin",
-                        "Access-Control-Allow-Credentials" => "true",
-                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
-                        "Etag" => "301-h/aPj95C/FhjvyhIw0tqK5Kjt3M",
-                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
-                        "Via" => "1.1 google",
-                        "CF-Cache-Status" => "DYNAMIC",
-                        "Server" => "cloudflare",
-                        "CF-RAY" => "86332f76fd95f2ef-BOM",
-                        "Content-Encoding" => "gzip"
-                    ],
-                    "cookies" => [],
-                    "error_message" => ""
-                ]
-            ],
-            "signedUrlUploadComplete" => [
-                "response" => [
-                    "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
-                    "method" => "post",
-                    "params" => [],
-                    "data" => [],
-                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
-                    "status_code" => 200,
-                    "content" => "{\"status\":\"success\"}",
-                    "headers" => [
-                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
-                        "Content-Type" => "application/json; charset=utf-8",
-                        "Transfer-Encoding" => "chunked",
-                        "Connection" => "keep-alive",
-                        "x-powered-by" => "Express",
-                        "Vary" => "Origin",
-                        "Access-Control-Allow-Credentials" => "true",
-                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
-                        "Etag" => "301-h/aPj95C/FhjvyhIw0tqK5Kjt3M",
-                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
-                        "Via" => "1.1 google",
-                        "CF-Cache-Status" => "DYNAMIC",
-                        "Server" => "cloudflare",
-                        "CF-RAY" => "86332f76fd95f2ef-BOM",
-                        "Content-Encoding" => "gzip"
-                    ],
-                    "cookies" => [],
-                    "error_message" => ""
-                ]
-            ],
         ]
     );
 
@@ -1465,7 +1369,7 @@ namespace Pixelbin\Tests {
         "URLS_TO_OBJ",
         [
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1473,7 +1377,7 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
                     "transformations" => [
                         [
                             "plugin" => "t",
@@ -1493,7 +1397,7 @@ namespace Pixelbin\Tests {
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/z-slug/t.resize(h:600,w:800)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/z-slug/t.resize(h:600,w:800)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1501,7 +1405,7 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => "z-slug",
-                    "baseUrl" => "https://cdn.pixelbin.io",
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
                     "transformations" => [
                         [
                             "plugin" => "t",
@@ -1522,7 +1426,7 @@ namespace Pixelbin\Tests {
             ],
 
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1530,37 +1434,29 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "rotate",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "-249",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "rotate",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "-249",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)~t.flip()~t.trim(t:217)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)~t.flip()~t.trim(t:217)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1568,51 +1464,39 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "rotate",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "-249",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "flip",
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "trim",
-                            "values" => [
-                                [
-                                    "key" => "t",
-                                    "value" => "217",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "rotate",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "-249",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "flip",
+                    ], [
+                        "plugin" => "t",
+                        "name" => "trim",
+                        "values" => [[
+                            "key" => "t",
+                            "value" => "217",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:100,b:2.1,c:test)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:100,b:2.1,c:test)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1620,45 +1504,35 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "100",
-                                ],
-                                [
-                                    "key" => "b",
-                                    "value" => "2.1",
-                                ],
-                                [
-                                    "key" => "c",
-                                    "value" => "test",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "100",
+                        ], [
+                            "key" => "b",
+                            "value" => "2.1",
+                        ], [
+                            "key" => "c",
+                            "value" => "test",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1666,31 +1540,25 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1()/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1()/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1698,31 +1566,25 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:12/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:12/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1730,40 +1592,32 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "12",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "12",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/feel/erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)/MZZKB3e1hT48o0NYJ2Kxh.jpeg?dpr=2.0&f_auto=True",
+                "url" => "https://cdn.pixelbinx0.de/v2/feel/erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)/MZZKB3e1hT48o0NYJ2Kxh.jpeg?dpr=2.0&f_auto=True",
                 "obj" => [
                     "version" => "v2",
-                    "baseUrl" => "https://cdn.pixelbin.io",
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
                     "filePath" => "MZZKB3e1hT48o0NYJ2Kxh.jpeg",
                     "pattern" => "erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)",
                     "cloudName" => "feel",
@@ -1772,40 +1626,30 @@ namespace Pixelbin\Tests {
                         "f_auto" => true,
                     ],
                     "zone" => null,
-                    "transformations" => [
-                        [
-                            "values" => [
-                                [
-                                    "key" => "shadow",
-                                    "value" => "true",
-                                ],
-                            ],
-                            "plugin" => "erase",
-                            "name" => "bg",
-                        ],
-                        [
-                            "values" => [
-                                [
-                                    "key" => "m",
-                                    "value" => "underlay",
-                                ],
-                                [
-                                    "key" => "i",
-                                    "value" => "eU44YkFJOHlVMmZrWVRDOUNTRm1D",
-                                ],
-                                [
-                                    "key" => "b",
-                                    "value" => "screen",
-                                ],
-                                [
-                                    "key" => "r",
-                                    "value" => "true",
-                                ],
-                            ],
-                            "plugin" => "t",
-                            "name" => "merge",
-                        ],
-                    ],
+                    "transformations" => [[
+                        "values" => [[
+                            "key" => "shadow",
+                            "value" => "true",
+                        ],],
+                        "plugin" => "erase",
+                        "name" => "bg",
+                    ], [
+                        "values" => [[
+                            "key" => "m",
+                            "value" => "underlay",
+                        ], [
+                            "key" => "i",
+                            "value" => "eU44YkFJOHlVMmZrWVRDOUNTRm1D",
+                        ], [
+                            "key" => "b",
+                            "value" => "screen",
+                        ], [
+                            "key" => "r",
+                            "value" => "true",
+                        ],],
+                        "plugin" => "t",
+                        "name" => "merge",
+                    ],],
                 ],
             ],
         ]
@@ -1815,7 +1659,7 @@ namespace Pixelbin\Tests {
         "OBJS_TO_URL",
         [
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1823,27 +1667,22 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/z-slug/t.resize(h:600,w:800)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/z-slug/t.resize(h:600,w:800)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1851,27 +1690,22 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => "z-slug",
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1879,37 +1713,29 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "rotate",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "-249",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "rotate",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "-249",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)~t.flip()~t.trim(t:217)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:600,w:800)~t.rotate(a:-249)~t.flip()~t.trim(t:217)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
@@ -1917,294 +1743,234 @@ namespace Pixelbin\Tests {
                     "filePath" => "W2.jpeg",
                     "options" => [],
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "600",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "800",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "rotate",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "-249",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "flip",
-                        ],
-                        [
-                            "plugin" => "t",
-                            "name" => "trim",
-                            "values" => [
-                                [
-                                    "key" => "t",
-                                    "value" => "217",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "600",
+                        ], [
+                            "key" => "w",
+                            "value" => "800",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "rotate",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "-249",
+                        ],],
+                    ], [
+                        "plugin" => "t",
+                        "name" => "flip",
+                    ], [
+                        "plugin" => "t",
+                        "name" => "trim",
+                        "values" => [[
+                            "key" => "t",
+                            "value" => "217",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:100,b:2.1,c:test)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:100,b:2.1,c:test)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1(a:100,b:2.1,c:test)",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "100",
-                                ],
-                                [
-                                    "key" => "b",
-                                    "value" => "2.1",
-                                ],
-                                [
-                                    "key" => "c",
-                                    "value" => "test",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "100",
+                        ], [
+                            "key" => "b",
+                            "value" => "2.1",
+                        ], [
+                            "key" => "c",
+                            "value" => "test",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:12)/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1(a:12)/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1(a:12",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [
-                                [
-                                    "key" => "a",
-                                    "value" => "12",
-                                ],
-                            ],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [[
+                            "key" => "a",
+                            "value" => "12",
+                        ],],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1(a:12",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "200",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "200",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [],
+                    ],],
                 ],
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:,w:100)~p:preset1(a:12",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "key" => "h",
-                                    "value" => "",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "key" => "h",
+                            "value" => "",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [],
+                    ],],
                 ],
                 "error" => "value not specified for 'h' in 'resize'",
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1(a:12",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [
-                                    "value" => "",
-                                ],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[
+                            "value" => "",
+                        ], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [],
+                    ],],
                 ],
                 "error" => "key not specified in 'resize'",
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
+                "url" => "https://cdn.pixelbinx0.de/v2/broken-butterfly-3b12f1/t.resize(h:200,w:100)~p:preset1/W2.jpeg",
                 "obj" => [
                     "version" => "v2",
                     "cloudName" => "broken-butterfly-3b12f1",
                     "pattern" => "t.resize(h:200,w:100)~p:preset1(a:12",
                     "filePath" => "W2.jpeg",
                     "zone" => null,
-                    "baseUrl" => "https://cdn.pixelbin.io",
-                    "transformations" => [
-                        [
-                            "plugin" => "t",
-                            "name" => "resize",
-                            "values" => [
-                                [],
-                                [
-                                    "key" => "w",
-                                    "value" => "100",
-                                ],
-                            ],
-                        ],
-                        [
-                            "plugin" => "p",
-                            "name" => "preset1",
-                            "values" => [],
-                        ],
-                    ],
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
+                    "transformations" => [[
+                        "plugin" => "t",
+                        "name" => "resize",
+                        "values" => [[], [
+                            "key" => "w",
+                            "value" => "100",
+                        ],],
+                    ], [
+                        "plugin" => "p",
+                        "name" => "preset1",
+                        "values" => [],
+                    ],],
                 ],
                 "error" => "key not specified in 'resize'",
             ],
             [
-                "url" => "https://cdn.pixelbin.io/v2/feel/erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)/MZZKB3e1hT48o0NYJ2Kxh.jpeg?dpr=2.0&f_auto=True",
+                "url" => "https://cdn.pixelbinx0.de/v2/feel/erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)/MZZKB3e1hT48o0NYJ2Kxh.jpeg?dpr=2.0&f_auto=True",
                 "obj" => [
                     "version" => "v2",
-                    "baseUrl" => "https://cdn.pixelbin.io",
+                    "baseUrl" => "https://cdn.pixelbinx0.de",
                     "filePath" => "MZZKB3e1hT48o0NYJ2Kxh.jpeg",
                     "pattern" => "erase.bg(shadow:true)~t.merge(m:underlay,i:eU44YkFJOHlVMmZrWVRDOUNTRm1D,b:screen,r:true)",
                     "cloudName" => "feel",
@@ -2213,48 +1979,32 @@ namespace Pixelbin\Tests {
                         "f_auto" => true,
                     ],
                     "zone" => null,
-                    "transformations" => [
-                        [
-                            "values" => [
-                                [
-                                    "key" => "shadow",
-                                    "value" => "true",
-                                ],
-                            ],
-                            "plugin" => "erase",
-                            "name" => "bg",
-                        ],
-                        [
-                            "values" => [
-                                [
-                                    "key" => "m",
-                                    "value" => "underlay",
-                                ],
-                                [
-                                    "key" => "i",
-                                    "value" => "eU44YkFJOHlVMmZrWVRDOUNTRm1D",
-                                ],
-                                [
-                                    "key" => "b",
-                                    "value" => "screen",
-                                ],
-                                [
-                                    "key" => "r",
-                                    "value" => "true",
-                                ],
-                            ],
-                            "plugin" => "t",
-                            "name" => "merge",
-                        ],
-                    ],
+                    "transformations" => [[
+                        "values" => [[
+                            "key" => "shadow",
+                            "value" => "true",
+                        ],],
+                        "plugin" => "erase",
+                        "name" => "bg",
+                    ], [
+                        "values" => [[
+                            "key" => "m",
+                            "value" => "underlay",
+                        ], [
+                            "key" => "i",
+                            "value" => "eU44YkFJOHlVMmZrWVRDOUNTRm1D",
+                        ], [
+                            "key" => "b",
+                            "value" => "screen",
+                        ], [
+                            "key" => "r",
+                            "value" => "true",
+                        ],],
+                        "plugin" => "t",
+                        "name" => "merge",
+                    ],],
                 ],
             ],
         ]
     );
-
-    define("CONFIG", [
-        "host" => "api.pixelbin.io",
-        "domain" => "https://api.pixelbin.io",
-        "apiSecret" => "API_TOKEN"
-    ]);
 }
