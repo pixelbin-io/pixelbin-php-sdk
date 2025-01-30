@@ -6,15 +6,11 @@ namespace Pixelbin\Common\Exceptions {
 
     /**
      * Pixelbin Illegal Query Parameter Exception.
-     *
-     * @deprecated use PDKIllegalQueryParameterError instead
      */
-    class PixelbinIllegalQueryParameterError extends Exception
+    class PDKIllegalQueryParameterError extends Exception
     {
         public function __construct($message = "")
         {
-            trigger_error(__METHOD__ . ' is deprecated', E_USER_DEPRECATED);
-
             parent::__construct($message);
         }
     }

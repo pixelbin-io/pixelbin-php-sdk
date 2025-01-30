@@ -124,5 +124,13 @@ namespace Pixelbin\Common {
 
             return !$sign_query ? $input_headers : $query_string;
         }
+
+        public static function getSdkDetails(): array
+        {
+            return [
+                "name" => "pixelbin/pixelbin",
+                "version" => "1.0.0"
+            ];
+        }
     }
 }

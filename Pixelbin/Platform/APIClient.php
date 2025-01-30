@@ -19,10 +19,7 @@ namespace Pixelbin\Platform {
         ): array {
             $token = base64_encode(mb_convert_encoding($conf->get_access_token(), "UTF-8"));
             $headers = ["Authorization" => "Bearer $token"];
-            $sdk = [
-                "name" => "pixelbin/pixelbin",
-                "version" => "0.0.4"
-            ];
+            $sdk = Utils::getSdkDetails();
             $language = "php";
             $userAgent = $sdk["name"] . "/" . $sdk["version"] . " (" . $language . ")";
             if (!empty($conf->integrationPlatform)) {
