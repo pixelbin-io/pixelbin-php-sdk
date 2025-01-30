@@ -1,7 +1,5 @@
 <?php
 // autoload.php
-require(__DIR__ . "/Common/Constants.php");
-
 spl_autoload_register(function ($class) {
     // Define the base directory for your project
     $baseDir = __DIR__ . "/";

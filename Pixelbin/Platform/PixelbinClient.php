@@ -3,6 +3,7 @@
 namespace Pixelbin\Platform {
     use Pixelbin\Platform\Enums\AccessEnum;
     use Pixelbin\Common\Exceptions;
+    use Pixelbin\Platform\Uploader;
 
     /**
      * PixelbinClient is a wrapper class for hitting pixelbin apis
@@ -12,12 +13,14 @@ namespace Pixelbin\Platform {
         public PixelbinConfig $config;
         public Assets $assets;
         public Organization $organization;
+        public Uploader $uploader;
 
         public function __construct(PixelbinConfig $config)
         {
             $this->config = $config;
             $this->assets = new Assets($config);
             $this->organization = new Organization($config);
+            $this->uploader = new Uploader($this->assets);
         }
     }
 

@@ -3,6 +3,8 @@
 ## 1.0.0
 
 - Added Security util for url signing.
+- Added [upload](./README.md#upload) method.
+- Removed support for signature generation for APIs.
 
 ## 0.0.4
 
