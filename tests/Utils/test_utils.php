@@ -1320,60 +1320,39 @@ namespace Pixelbin\Tests {
             ],
             "createSignedUrlV2Case1" => [
                 "response" => [
-                    "url" => 'https://api.pixelbin.io/service/platform/assets/v2.0/upload/signed-url',
-                    "method" => 'post',
+                    "url" => "https://api.pixelbin.io/service/platform/assets/v2.0/upload/signed-url",
+                    "method" => "post",
                     "params" => [],
-                    "external_call_request_time" => '2023-03-07 16:36:33.127599+05:30',
+                    "data" => [],
+                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
                     "status_code" => 200,
-                    "text" => '{"_id":"8bdbd34b-80f8-4dad-967c-b30d6f70f83b","createdAt":"2023-03-07T06:45:16.841Z","updatedAt":"2023-03-07T06:45:16.841Z","isActive":true,"orgId":"782","type":"file","name":"playground-default","path":"__playground","fileId":"__playground/playground-default","format":"jpeg","size":218409,"tags":[],"metadata":{"source":"direct"},"access":"public-read","width":1140,"height":760,"meta":{},"kvStore":{},"context":{"req":{"query":{},"headers":{}},"meta":{"size":218409,"width":1140,"format":"jpeg","height":760},"steps":[]},"assetType":null,"url":"https://cdn.pixelbin.io/v2/shrill-bread-710314/original/__playground/playground-default.jpeg"}',
+                    "text" => '{"presignedUrl":{"url":"https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6","fields":{"x-pixb-meta-assetdata":"{\\"orgId\\":3308,\\"type\\":\\"file\\",\\"name\\":\\"asset-8WhaVptV2.jpeg\\",\\"path\\":\\"\\",\\"fileId\\":\\"asset-8WhaVptV2.jpeg\\",\\"format\\":\\"jpeg\\",\\"s3Bucket\\":\\"erase-erase-erasebg-assets\\",\\"s3Key\\":\\"uploads/shiny-tree-8df4f8/original/13859f04-3dc0-4aca-a762-263108fb0323.jpeg\\",\\"access\\":\\"public-read\\",\\"tags\\":[],\\"metadata\\":{\\"source\\":\\"signedUrl\\",\\"publicUploadId\\":\\"376a20ef-cf61-469d-a90f-c35177cc1dd6\\"},\\"overwrite\\":false,\\"filenameOverride\\":false}"}}}',
                     "headers" => [
-                        "Date" => 'Tue, 07 Mar 2023 11:06:33 GMT',
-                        "Content-Type" => 'application/json; charset=utf-8',
-                        "Content-Length" => '644',
-                        "Connection" => 'keep-alive',
-                        "X-Powered-By" => 'Express',
-                        "Etag" => 'W/"284-nb+dfdav6xB7q/L9tIGBqiikBjc"',
-                        "X-Fynd-Trace-Id" => '08aef7c7348c2d8577882efaf875293d',
+                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
+                        "Content-Type" => "application/json; charset=utf-8",
+                        "Transfer-Encoding" => "chunked",
+                        "Connection" => "keep-alive",
+                        "x-powered-by" => "Express",
+                        "Vary" => "Origin",
+                        "Access-Control-Allow-Credentials" => "true",
+                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
+                        "Etag" => 'W/"301-h/aPj95C/FhjvyhIw0tqK5Kjt3M"',
+                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
+                        "Via" => "1.1 google",
+                        "CF-Cache-Status" => "DYNAMIC",
+                        "Server" => "cloudflare",
+                        "CF-RAY" => "86332f76fd95f2ef-BOM",
+                        "Content-Encoding" => "gzip",
                     ],
                     "cookies" => [],
-                    "error_message" => '',
+                    "error_message" => "",
                     "content" => [
-                        "_id" => '8bdbd34b-80f8-4dad-967c-b30d6f70f83b',
-                        "createdAt" => '2023-03-07T06:45:16.841Z',
-                        "updatedAt" => '2023-03-07T06:45:16.841Z',
-                        "isActive" => true,
-                        "orgId" => '782',
-                        "type" => 'file',
-                        "name" => 'playground-default',
-                        "path" => '__playground',
-                        "fileId" => '__playground/playground-default',
-                        "format" => 'jpeg',
-                        "size" => 218409,
-                        "tags" => [],
-                        "metadata" => [
-                            "source" => 'direct',
-                        ],
-                        "access" => 'public-read',
-                        "width" => 1140,
-                        "height" => 760,
-                        "meta" => [],
-                        "kvStore" => [],
-                        "context" => [
-                            "req" => [
-                                "query" => [],
-                                "headers" => [],
-                            ],
-                            "meta" => [
-                                "size" => 218409,
-                                "width" => 1140,
-                                "format" => 'jpeg',
-                                "height" => 760,
-                            ],
-                            "steps" => [],
-                        ],
-                        "url" => 'https://cdn.pixelbin.io/v2/shrill-bread-710314/original/__playground/playground-default.jpeg',
+                        "presignedUrl" => [
+                            "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
+                            "fields" => ["x-pixb-meta-assetdata" => "{\"orgId\":3308,\"type\":\"file\",\"name\":\"asset-8WhaVptV2.jpeg\",\"path\":\"\",\"fileId\":\"asset-8WhaVptV2.jpeg\",\"format\":\"jpeg\",\"s3Bucket\":\"erase-erase-erasebg-assets\",\"s3Key\":\"uploads/shiny-tree-8df4f8/original/13859f04-3dc0-4aca-a762-263108fb0323.jpeg\",\"access\":\"public-read\",\"tags\":[],\"metadata\":{\"source\":\"signedUrl\",\"publicUploadId\":\"376a20ef-cf61-469d-a90f-c35177cc1dd6\"},\"overwrite\":false,\"filenameOverride\":false}"]
+                        ]
                     ],
-                ],
+                ]
             ],
             "getAppOrgDetails" => [
                 "response" => [
@@ -2212,4 +2191,10 @@ namespace Pixelbin\Tests {
             ],
         ]
     );
+
+    define("CONFIG", [
+        "host" => "api.pixelbin.io",
+        "domain" => "https://api.pixelbin.io",
+        "apiSecret" => "API_TOKEN"
+    ]);
 }
