@@ -48,20 +48,26 @@ namespace Pixelbin\Platform {
                 $query = $get_params;
             }
 
-            $query_string = Utils::create_query_string($query);
-            $headers_with_sign = Utils::add_signature_to_headers(
-                $conf->domain,
-                $method,
-                $url,
-                $query_string,
-                $headers,
-                $data,
-                ["Authorization", "Content-Type", "User-Agent"]
-            );
-            $headers_with_sign["x-ebg-param"] = base64_encode(mb_convert_encoding($headers_with_sign["x-ebg-param"], "UTF-8"));
+            //
+            // Skipping signature check for URLS starting with `/service/platform/` i.e. platform APIs of all services.
+            //
+            // $query_string = Utils::create_query_string($query);
+            // $headers_with_sign = Utils::add_signature_to_headers(
+            //     $conf->domain,
+            //     $method,
+            //     $url,
+            //     $query_string,
+            //     $headers,
+            //     $data,
+            //     ["Authorization", "Content-Type", "User-Agent"]
+            // );
+            // $headers_with_sign["x-ebg-param"] = base64_encode(mb_convert_encoding($headers_with_sign["x-ebg-param"], "UTF-8"));
+
+            $host = str_replace("http://", "", str_replace("https://", "", $conf->domain));
+            $headers["host"] = $host;
             if (static::$helper === null)
                 static::$helper = new GuzzleHttpHelper();
-            return static::$helper->request($method, $conf->domain . $url, $query, $body, $headers_with_sign);
+            return static::$helper->request($method, $conf->domain . $url, $query, $body, $headers);
         }
     }
 }

@@ -17,12 +17,6 @@ namespace Pixelbin\Tests\Platform {
     use PHPUnit\Framework\TestCase;
     use Exception;
 
-    const CONFIG = [
-        "host" => "api.pixelbin.io",
-        "domain" => "https://api.pixelbin.io",
-        "apiSecret" => "API_TOKEN"
-    ];
-
     final class PixelbinConfigTest extends TestCase
     {
         // switch to false to hit the PixelBin APIs while testing
