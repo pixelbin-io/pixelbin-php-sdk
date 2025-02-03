@@ -1,11 +1,14 @@
 # Pixelbin Backend SDK CHANGELOG
 
-## 0.0.2
+## 1.0.0
 
-- Fixed issue with autoload behaviour `PixelbinConfig`.
-- Added `createSignedUrlV2Async` and `createSignedUrlV2` for signed multipart upload
+- Added Security util for url signing.
+- Added [upload](./README.md#upload) method.
+- Removed support for signature generation for APIs.
+- Added support for parsing Custom Domains in `obj_to_url` and `url_to_obj`
+- Improved support for worker urls in `obj_to_url` and `url_to_obj`
 
-## V0.0.4
+## 0.0.4
 
 ### Additions
 
@@ -21,3 +24,8 @@
 
 - Fixed issue where errors were being printed to console and not thrown out.
 - Fixed issue where entire request and response body would be printed when making successful function calls.
+
+## 0.0.2
+
+- Fixed issue with autoload behaviour `PixelbinConfig`.
+- Added `createSignedUrlV2Async` and `createSignedUrlV2` for signed multipart upload

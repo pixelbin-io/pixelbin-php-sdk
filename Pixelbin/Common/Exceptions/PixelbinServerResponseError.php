@@ -6,11 +6,15 @@ namespace Pixelbin\Common\Exceptions {
 
     /**
      * Pixelbin Server Response Exception.
+     * 
+     * @deprecated use PDKServerResponseError instead
      */
     class PixelbinServerResponseError extends Exception
     {
         public function __construct($message = "")
         {
+            trigger_error(__METHOD__ . ' is deprecated', E_USER_DEPRECATED);
+
             parent::__construct($message);
         }
     }

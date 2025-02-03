@@ -1,5 +1,6 @@
 {
     "name": "pixelbin/pixelbin",
+    "version": "1.0.0",
     "description": "Pixelbin Backend SDK for PHP helps you integrate the core Pixelbin features with your application.",
     "license": "MIT",
     "type": "library",
@@ -12,19 +13,40 @@
     ],
     "homepage": "https://www.pixelbin.io/",
     "require": {
-        "guzzlehttp/guzzle": "^7.7",
-        "justinrainbow/json-schema": "^5.2"
-    },
-    "autoload": {
-        "classmap": [
-            "Pixelbin/"
-        ],
-        "psr-4": {
-            "Pixelbin\\": "Pixelbin/"
-        }
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.9",
+        "justinrainbow/json-schema": "^5.2",
+        "amphp/parallel": "^2.3",
+        "amphp/parallel-functions": "^2.0",
+        "amphp/amp": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.3",
+        "mockery/mockery": "^1.6",
         "dms/phpunit-arraysubset-asserts": "^0.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pixelbin\\": "Pixelbin/"
+        },
+        "files": [
+            "Pixelbin/Common/Constants.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pixelbin\\Tests\\": "tests/"
+        },
+        "files": [
+            "Pixelbin/Common/Constants.php",
+            "tests/Utils/test_utils.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit --no-coverage",
+        "test:coverage": "phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
     }
 }

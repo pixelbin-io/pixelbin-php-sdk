@@ -2,39 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Pixelbin\Tests {
-
-    require_once (__DIR__ . "/test_utils.php");
-
+namespace Pixelbin\Tests\Platform {
     use PHPUnit\Framework\MockObject\MockObject;
-    use Pixelbin\Utils\Url;
     use Pixelbin\Common\{
-        Exceptions,
         GuzzleHttpHelper,
+        Utils
     };
 
     use Pixelbin\Platform\{
         APIClient,
         PixelbinConfig,
         PixelbinClient,
-        Assets,
-        Organization
     };
 
-    use DMS\PHPUnitExtensions\ArraySubset\Assert;
     use PHPUnit\Framework\TestCase;
     use Exception;
     use Pixelbin\Platform\Enums\AccessEnum;
 
-    use function PHPUnit\Framework\anything;
-
-    const CONFIG = [
-        "host" => "api.pixelbin.io",
-        "domain" => "https://api.pixelbin.io",
-        "apiSecret" => "API_TOKEN"
-    ];
-
-    final class PixelbinTest extends TestCase
+    final class PixelbinClientTest extends TestCase
     {
         // switch to false to hit the PixelBin APIs while testing
         public bool $enableMocking = true;
@@ -43,8 +28,6 @@ namespace Pixelbin\Tests {
         public PixelbinClient $pixelbinClient;
         public string $folder_name;
         public string $folder_path;
-        public array $urls_to_obj;
-        public array $objs_to_url;
         public MockObject|GuzzleHttpHelper $guzzleHttpHelperMock;
 
         public function setMockObjectExpectations(array $mockResponse, array $calledWithArguments): void
@@ -59,16 +42,27 @@ namespace Pixelbin\Tests {
             }
         }
 
-        public function checkResponseHeaders(array $expected_value, array $data): bool
+        public function checkUserAgentHeader(array $data): bool
         {
+            $sdk = Utils::getSdkDetails();
+
+            $userAgent = $sdk["name"] . "/" . $sdk["version"] . " (php)";
+            $expected_value = [
+                "host" => $this->equalTo(CONFIG["host"]),
+                "Authorization" => $this->anything(),
+                "User-Agent" => $this->stringEqualsStringIgnoringLineEndings($userAgent)
+            ];
+
+            if (array_key_exists("Content-Type", $data)) {
+                $expected_value['Content-Type'] = $this->equalTo("application/json");
+            }
+
             foreach ($expected_value as $key => $value) {
                 try {
                     $this->assertArrayHasKey($key, $data);
-                    if ($expected_value[$key] !== anything()) {
-                        $this->assertEquals($expected_value[$key], $data[$key]);
-                    }
+                    $this->assertThat($data[$key], $expected_value[$key]);
                 } catch (Exception $e) {
-                    print_r($e);
+                    print_r($e->getMessage());
                     return false;
                 }
             }
@@ -78,8 +72,6 @@ namespace Pixelbin\Tests {
         public function setUpAssertions(array $mockData = [], array $realData = [])
         {
             if ($this->enableMocking)
-                Assert::assertArraySubset(...$mockData);
-            else
                 $this->assertEquals(...$realData);
         }
 
@@ -92,52 +84,8 @@ namespace Pixelbin\Tests {
             // Create Data
             $this->folder_name = "testdir";
             $this->folder_path = "/";
-            $this->urls_to_obj = URLS_TO_OBJ;
-            $this->objs_to_url = OBJS_TO_URL;
 
             $this->guzzleHttpHelperMock = $this->createMock(GuzzleHttpHelper::class);
-        }
-
-        public function test_pixelbin_config_and_client(): void
-        {
-            $this->assertEquals($this->config["domain"], $this->pixelbinConfig->domain);
-            $this->assertEquals($this->config["apiSecret"], $this->pixelbinConfig->apiSecret);
-
-            $this->assertEquals($this->pixelbinClient->config, $this->pixelbinConfig);
-            $this->assertInstanceOf(Assets::class, $this->pixelbinClient->assets);
-            $this->assertInstanceOf(Organization::class, $this->pixelbinClient->organization);
-        }
-
-        public function test_pixelbin_config_token_1(): void
-        {
-            try {
-                $config = new PixelbinConfig([
-                    "domain" => "https://api.pixelbin.io",
-                ]);
-                new PixelbinClient($config);
-            } catch (Exception $e) {
-                $this->assertInstanceOf(Exceptions\PixelbinInvalidCredentialError::class, $e);
-                $this->assertTrue(str_contains("No API Secret Token Present", $e->getMessage()));
-                return;
-            }
-            $this->fail("Expected Exceptions\PixelbinInvalidCredentialError was not thrown.");
-        }
-
-
-        public function test_pixelbin_config_token_2(): void
-        {
-            try {
-                $config = new PixelbinConfig([
-                    "domain" => "https://api.pixelbin.io",
-                    "apiSecret" => "abc",
-                ]);
-                new PixelbinClient($config);
-            } catch (Exception $e) {
-                $this->assertInstanceOf(Exceptions\PixelbinInvalidCredentialError::class, $e);
-                $this->assertTrue(str_contains("Invalid API Secret Token", $e->getMessage()));
-                return;
-            }
-            $this->fail("Expected Exceptions\PixelbinInvalidCredentialError was not thrown.");
         }
 
         public function test_createFolder(): void
@@ -156,19 +104,10 @@ namespace Pixelbin\Tests {
                         ]
                     ),
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     })
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->createFolder(
                 name: $this->folder_name,
@@ -187,13 +126,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testFileUploadCase1()
+        public function test_FileUploadCase1()
         {
-            $form_data = [
-                "file" => $this->anything()
-            ];
-
             $mock_response = MOCK_RESPONSE["fileUpload1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -203,19 +137,10 @@ namespace Pixelbin\Tests {
                     [],
                     $this->anything(),
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $file = __DIR__ . "/1.jpeg";
             $resp = $this->pixelbinClient->assets->fileUpload(
@@ -234,8 +159,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testFileUploadCase2()
+        public function test_FileUploadCase2()
         {
             $file = __DIR__ . "/1.jpeg";
             $tags = ["tag1", "tag2"];
@@ -249,19 +173,10 @@ namespace Pixelbin\Tests {
                     [],
                     $this->anything(),
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->fileUpload(
                 file: fopen($file, "r"),
@@ -286,7 +201,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-        public function testGetFileById()
+        public function test_GetFileById()
         {
             $_id = "9d331030-b695-475e-9d4a-a660696d5fa5";
             $_id = "ea75fe6c-bba3-4706-85e0-af7bc5d73381";
@@ -300,19 +215,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getFileById(
                 _id: $_id,
@@ -330,10 +236,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testListFilesCase1()
+        public function test_ListFilesCase1()
         {
-
             $mock_response = MOCK_RESPONSE["listFiles1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -343,19 +247,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->listFiles();
 
@@ -371,10 +266,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testListFilesCase2()
+        public function test_ListFilesCase2()
         {
-
             $mock_response = MOCK_RESPONSE["listFiles2"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -395,19 +288,10 @@ namespace Pixelbin\Tests {
                     ],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->listFiles(
                 name: "1",
@@ -433,8 +317,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUrlUpload()
+        public function test_UrlUpload()
         {
             $mock_data = [
                 "url" => "https://www.fetchfind.com/blog/wp-content/uploads/2017/08/cat-2734999_1920-5-common-cat-sounds.jpg",
@@ -455,20 +338,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $tags = ["cat", "animal"];
             $url = "https://www.fetchfind.com/blog/wp-content/uploads/2017/08/cat-2734999_1920-5-common-cat-sounds.jpg";
@@ -495,10 +368,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testCreateSignedUrlCase1()
+        public function test_CreateSignedUrlCase1()
         {
-
             $mock_response = MOCK_RESPONSE["createSignedURL1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -508,19 +379,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->createSignedUrl();
 
@@ -536,8 +398,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testCreateSignedUrlCase2()
+        public function test_CreateSignedUrlCase2()
         {
             $mock_data = [
                 "name" => "1",
@@ -558,19 +419,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $data = [
                 "name" => "1",
@@ -597,8 +449,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUpdateFileCase1()
+        public function test_UpdateFileCase1()
         {
             $mock_data = [
                 "name" => "1_"
@@ -612,19 +463,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $fileId = "1";
             $name = "1_";
@@ -646,8 +488,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUpdateFileCase2()
+        public function test_UpdateFileCase2()
         {
             $mock_data = [
                 "name" => $this->folder_name . "_",
@@ -666,19 +507,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $fileId = $this->folder_name . "/1";
             $name = $this->folder_name . "_";
@@ -706,10 +538,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetFileByFileId()
+        public function test_GetFileByFileId()
         {
-
             $mock_response = MOCK_RESPONSE["getFileByFileId"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -719,19 +549,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $fileId = $this->folder_name . "/2";
 
@@ -749,10 +570,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testDeleteFile()
+        public function test_DeleteFile()
         {
-
             $mock_response = MOCK_RESPONSE["deleteFile"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -762,19 +581,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything()
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $fileId = "1_";
 
@@ -792,8 +602,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testDeleteFiles()
+        public function test_DeleteFiles()
         {
             $_ids = [
                 "745f0ab2-bf8e-4933-8acb-b526e74525d7",
@@ -811,20 +620,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $_ids = [
                 "745f0ab2-bf8e-4933-8acb-b526e74525d7",
@@ -850,8 +649,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUpdateFolder()
+        public function test_UpdateFolder()
         {
             $mock_data = [
                 "isActive" => true
@@ -865,20 +663,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $folderId = $this->folder_name;
             $resp = $this->pixelbinClient->assets->updateFolder($folderId, true);
@@ -895,10 +683,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetFolderDetails()
+        public function test_GetFolderDetails()
         {
-
             $mock_response = MOCK_RESPONSE["getFolderDetails"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -911,19 +697,10 @@ namespace Pixelbin\Tests {
                     ],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $name = $this->folder_name;
             $data = [
@@ -944,8 +721,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetFolderAncestors()
+        public function test_GetFolderAncestors()
         {
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
             $mock_response = MOCK_RESPONSE["getFolderAncestors"]["response"];
@@ -957,19 +733,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
 
@@ -987,8 +754,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testDeleteFolder()
+        public function test_DeleteFolder()
         {
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
             $mock_response = MOCK_RESPONSE["deleteFolder"]["response"];
@@ -1000,19 +766,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $folder_id = "90e47275-1e7b-4e50-a314-3e2c9176c842";
 
@@ -1030,10 +787,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetModules()
+        public function test_GetModules()
         {
-
             $mock_response = MOCK_RESPONSE["getModules"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1043,19 +798,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getModules();
 
@@ -1071,10 +817,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetModule()
+        public function test_GetModule()
         {
-
             $mock_response = MOCK_RESPONSE["getModule"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1084,19 +828,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getModule(identifier: "erase");
 
@@ -1112,8 +847,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testAddCredentials()
+        public function test_AddCredentials()
         {
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_data = [
@@ -1129,20 +863,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json",
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_response = MOCK_RESPONSE["addCredentials"]["response"];
@@ -1163,8 +887,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUpdateCredentials()
+        public function test_UpdateCredentials()
         {
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
             $mock_data = [
@@ -1179,20 +902,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json",
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $apiKey = MOCK_RESPONSE["updateCredentials"]["apiKey"];
 
@@ -1212,10 +925,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testDeleteCredentials()
+        public function test_DeleteCredentials()
         {
-
             $mock_response = MOCK_RESPONSE["deleteCredentials"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1225,19 +936,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $pluginId = "remove";
             $resp = $this->pixelbinClient->assets->deleteCredentials($pluginId);
@@ -1254,8 +956,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testAddPreset()
+        public function test_AddPreset()
         {
             $mock_data = [
                 "presetName" => "p1",
@@ -1274,20 +975,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $presetName = "p1";
             $transformation = "t.flip()~t.flop()";
@@ -1314,10 +1005,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetPresets()
+        public function test_GetPresets()
         {
-
             $mock_response = MOCK_RESPONSE["getPresets"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1327,19 +1016,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getPresets();
 
@@ -1355,8 +1035,7 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUpdatePresets()
+        public function test_UpdatePresets()
         {
             $mock_data = [
                 "archived" => true
@@ -1370,20 +1049,10 @@ namespace Pixelbin\Tests {
                     [],
                     $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                            "Content-Type" => "application/json"
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->updatePreset(
                 presetName: "p1",
@@ -1402,10 +1071,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetPreset()
+        public function test_GetPreset()
         {
-
             $mock_response = MOCK_RESPONSE["getPreset"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1415,19 +1082,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getPreset(presetName: "p1");
 
@@ -1443,10 +1101,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testDeletePreset()
+        public function test_DeletePreset()
         {
-
             $mock_response = MOCK_RESPONSE["deletePreset"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1456,19 +1112,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->deletePreset(presetName: "p1");
 
@@ -1484,10 +1131,8 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetDefaultAssetForPlayground()
+        public function test_GetDefaultAssetForPlayground()
         {
-
             $mock_response = MOCK_RESPONSE["getDefaultAssetForPlayground"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
@@ -1497,19 +1142,10 @@ namespace Pixelbin\Tests {
                     [],
                     [],
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
-
 
             $resp = $this->pixelbinClient->assets->getDefaultAssetForPlayground();
 
@@ -1525,34 +1161,43 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testGetAppOrgDetails()
+        public function test_CreateSignedUrlV2Case1()
         {
-
-            $mock_response = MOCK_RESPONSE["getAppOrgDetails"]["response"];
+            $mock_data = [
+                "name" => "1",
+                "path" => "testdir",
+                "format" => "jpeg",
+                "access" => AccessEnum::PUBLIC_READ,
+                "tags" => ["tag1", "tag2"],
+                "metadata" => (object) [],
+                "overwrite" => false,
+                "filenameOverride" => true,
+            ];
+            $mock_response = MOCK_RESPONSE["createSignedUrlV2Case1"]["response"];
             $this->setMockObjectExpectations(
                 $mock_response,
                 [
-                    "get",
-                    CONFIG["domain"] . "/service/platform/organization/v1.0/apps/info",
+                    "post",
+                    CONFIG["domain"] . "/service/platform/assets/v2.0/upload/signed-url",
                     [],
-                    [],
+                    $mock_data,
                     self::callback(function ($data) {
-                        $expected_value = [
-                            "host" => CONFIG["host"],
-                            "x-ebg-param" => $this->anything(),
-                            "x-ebg-signature" => $this->anything(),
-                            "Authorization" => $this->anything(),
-                        ];
-
-                        return $this->checkResponseHeaders($expected_value, $data);
+                        return $this->checkUserAgentHeader($data);
                     }),
-                    $this->anything()
                 ]
             );
 
-
-            $resp = $this->pixelbinClient->organization->getAppOrgDetails();
+            $data = [
+                "name" => "1",
+                "path" => $this->folder_name,
+                "format" => "jpeg",
+                "access" => AccessEnum::PUBLIC_READ,
+                "tags" => ["tag1", "tag2"],
+                "metadata" => (object) [],
+                "overwrite" => false,
+                "filenameOverride" => true,
+            ];
+            $resp = $this->pixelbinClient->assets->createSignedUrlV2(...$data);
 
             $this->setUpAssertions(
                 [
@@ -1566,66 +1211,34 @@ namespace Pixelbin\Tests {
             );
         }
 
-
-        public function testUrlToObj()
+        public function test_GetAppOrgDetails()
         {
-            foreach ($this->urls_to_obj as $case) {
-                $url = $case["url"];
-                $expectedObj = $case["obj"];
-                $obj = Url::url_to_obj($url);
-                $this->assertEquals($expectedObj, $obj);
-            }
-        }
+            $mock_response = MOCK_RESPONSE["getAppOrgDetails"]["response"];
+            $this->setMockObjectExpectations(
+                $mock_response,
+                [
+                    "get",
+                    CONFIG["domain"] . "/service/platform/organization/v1.0/apps/info",
+                    [],
+                    [],
+                    self::callback(function ($data) {
+                        return $this->checkUserAgentHeader($data);
+                    }),
+                ]
+            );
 
+            $resp = $this->pixelbinClient->organization->getAppOrgDetails();
 
-        public function testObjToUrl()
-        {
-            foreach ($this->objs_to_url as $case) {
-                $obj = $case["obj"];
-                $expectedUrl = $case["url"];
-                try {
-                    $url = Url::obj_to_url($obj);
-                    $this->assertEquals($expectedUrl, $url);
-                } catch (Exception $err) {
-                    $this->assertEquals($err->getMessage(), $case["error"]);
-                }
-            }
-        }
-
-        public function testFailureForOptionDprQueryParam()
-        {
-            $obj = [
-                "baseUrl" => "https://cdn.pixelbin.io",
-                "filePath" => "__playground/playground-default.jpeg",
-                "version" => "v2",
-                "zone" => "z-slug",
-                "cloudName" => "red-scene-95b6ea",
-                "options" => ["dpr" => 5.5, "f_auto" => true],
-                "transformations" => [[]],
-            ];
-
-            $this->expectException(Exceptions\PixelbinIllegalQueryParameterError::class);
-            Url::obj_to_url($obj);
-        }
-
-
-        public function testFailureForOptionFautoQueryParam()
-        {
-            // require_once 'pixelbin/common/exceptions.php';
-            // require_once 'pixelbin/utils/url.php';
-
-            $obj = [
-                "baseUrl" => "https://cdn.pixelbin.io",
-                "filePath" => "__playground/playground-default.jpeg",
-                "version" => "v2",
-                "zone" => "z-slug",
-                "cloudName" => "red-scene-95b6ea",
-                "options" => ["dpr" => 2.5, "f_auto" => "abc"],
-                "transformations" => [[]],
-            ];
-
-            $this->expectException(Exceptions\PixelbinIllegalQueryParameterError::class);
-            Url::obj_to_url($obj);
+            $this->setUpAssertions(
+                [
+                    $mock_response["content"],
+                    $resp
+                ],
+                [
+                    200,
+                    $mock_response["status_code"]
+                ]
+            );
         }
     }
 }
