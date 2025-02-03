@@ -24,10 +24,18 @@ namespace Pixelbin\Common {
                 'timeout' => $timeoutAllowed,
             ]);
 
+            if (array_key_exists("Content-Type", $headers)) {
+                if ($headers["Content-Type"] == "multipart/form-data") {
+                    unset($headers["Content-Type"]);
+                }
+            }
             $requestOptions = [
-                RequestOptions::HEADERS => $headers,
                 RequestOptions::COOKIES => $cookieJar,
             ];
+
+            if (!empty($headers)) {
+                $requestOptions[RequestOptions::HEADERS] = $headers;
+            }
 
             if (!empty($params)) {
                 $requestOptions[RequestOptions::QUERY] = $params;
@@ -123,13 +131,21 @@ namespace Pixelbin\Common {
                                     'contents' => $element
                                 ];
                             }
-                        } elseif (is_resource($value)) {
-                            $metadata = stream_get_meta_data($value);
-                            $formData[] = [
-                                "name" => $key,
-                                "contents" => $value,
-                                "filename" => basename($metadata["uri"])
-                            ];
+                        } elseif (is_resource($value) || ($key === "file" && is_string($value))) {
+                            if (is_string($value)) {
+                                $formData[] = [
+                                    "name" => $key,
+                                    "contents" => $value,
+                                    "filename" => "uploadFile"
+                                ];
+                            } else {
+                                $metadata = stream_get_meta_data($value);
+                                $formData[] = [
+                                    "name" => $key,
+                                    "contents" => $value,
+                                    "filename" => basename($metadata["uri"])
+                                ];
+                            }
                         } else {
                             $formData[] = [
                                 "name" => $key,

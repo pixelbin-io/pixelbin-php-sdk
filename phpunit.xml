@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    cacheDirectory=".phpunit.cache"
+    executionOrder="depends,defects"
+    requireCoverageMetadata="false"
+    beStrictAboutCoverageMetadata="true"
+    beStrictAboutOutputDuringTests="true"
+    failOnRisky="true"
+    failOnWarning="true">
+    <testsuites>
+        <testsuite name="Platform">
+            <directory suffix="Test.php">./tests/Platform</directory>
+        </testsuite>
+        <testsuite name="Utils">
+            <directory suffix="Test.php">./tests/Utils</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <report>
+            <html outputDirectory="./coverage" />
+            <clover outputFile="./coverage/clover.xml" />
+        </report>
+    </coverage>
+    <source>
+        <include>
+            <directory>Pixelbin</directory>
+        </include>
+    </source>
+</phpunit>
