@@ -259,21 +259,26 @@ Pixelbin provides url utilities to construct and deconstruct Pixelbin urls.
 
 Deconstruct a pixelbin url
 
-| parameter            | description          | example                                                                                               |
-| -------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- |
-| pixelbinUrl (string) | A valid pixelbin url | `https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg` |
+| parameter               | description                                                        | example                                                                                               |
+| ----------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `url` (string)          | A valid Pixelbin URL                                               | `https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg` |
+| `opts` (Object)         | Options for the conversion                                         | Default: `{ isCustomDomain: False }`                                                                  |
+| `opts.is_custom_domain` | Indicates if the URL belongs to a custom domain (default: `False`) |                                                                                                       |
 
 **Returns**:
 
-| property                | description                            | example                    |
-| ----------------------- | -------------------------------------- | -------------------------- |
-| cloudName (string)      | The cloudname extracted from the url   | `your-cloud-name`          |
-| zone (string)           | 6 character zone slug                  | `z-slug`                   |
-| version (string)        | cdn api version                        | `v2`                       |
-| options (object)        | optional query parameters              |                            |
-| transformations (array) | Extracted transformations from the url |                            |
-| filePath                | Path to the file on Pixelbin storage   | `/path/to/image.jpeg`      |
-| baseUrl (string)        | Base url                               | `https://cdn.pixelbin.io/` |
+| Property                  | Description                                          | Example                               |
+| ------------------------- | ---------------------------------------------------- | ------------------------------------- |
+| `baseURL` (string)        | Base path of the URL                                 | `https://cdn.pixelbin.io`             |
+| `filePath` (string)       | Path to the file on Pixelbin storage                 | `/path/to/image.jpeg`                 |
+| `version` (string)        | Version of the URL                                   | `v2`                                  |
+| `cloudName` (string)      | Cloud name from the URL                              | `your-cloud-name`                     |
+| `transformations` (array) | A list of transformation objects                     | `[{ "plugin": "t", "name": "flip" }]` |
+| `zone` (string)           | Zone slug from the URL                               | `z-slug`                              |
+| `pattern` (string)        | Transformation pattern extracted from the URL        | `t.resize(h:100,w:200)~t.flip()`      |
+| `worker` (boolean)        | Indicates if the URL is a URL Translation Worker URL | `False`                               |
+| `workerPath` (string)     | Input path to a URL Translation Worker               | `resize:w200,h400/folder/image.jpeg`  |
+| `options` (Object)        | Query parameters added, such as "dpr" and "f_auto"   | `{ dpr: 2.5, f_auto: True}`           |
 
 Example:
 
@@ -282,59 +287,119 @@ Example:
 
 use Pixelbin\Utils\Url;
 
-$pixelbinUrl = "https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=True"
+$pixelbinUrl = "https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=true"
 $obj = Url::url_to_obj($pixelbinUrl);
+// obj
+// {
+//     "cloudName": "your-cloud-name",
+//     "zone": "z-slug",
+//     "version": "v2",
+//     "options": {
+//         "dpr": 2.0,
+//         "f_auto": true,
+//     },
+//     "transformations": [
+//         {
+//             "plugin": "t",
+//             "name": "resize",
+//             "values": [
+//                 {
+//                     "key": "h",
+//                     "value": "100"
+//                 },
+//                 {
+//                     "key": "w",
+//                     "value": "200"
+//                 }
+//             ]
+//         },
+//         {
+//             "plugin": "t",
+//             "name": "flip",
+//         }
+//     ],
+//     "filePath": "path/to/image.jpeg",
+//     "baseUrl": "https://cdn.pixelbin.io"
+// }
 ```
 
-Output obj stored in `$obj`:
+```php
+<?php
 
-```json
-{
-    "cloudName": "your-cloud-name",
-    "zone": "z-slug",
-    "version": "v2",
-    "options": {
-        "dpr": 2.0,
-        "f_auto": true,
-    },
-    "transformations": [
-        {
-            "plugin": "t",
-            "name": "resize",
-            "values": [
-                {
-                    "key": "h",
-                    "value": "100"
-                },
-                {
-                    "key": "w",
-                    "value": "200"
-                }
-            ]
-        },
-        {
-            "plugin": "t",
-            "name": "flip",
-        }
-    ],
-    "filePath": "path/to/image.jpeg",
-    "baseUrl": "https://cdn.pixelbin.io"
-}
+use Pixelbin\Utils\Url;
+
+$customDomainUrl = "https://xyz.designify.media/v2/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg";
+$obj = Url::url_to_obj(customDomainUrl, opts={ is_custom_domain: True })
+// obj
+// {
+//     "zone": "z-slug",
+//     "version": "v2",
+//     "transformations": [
+//         {
+//             "plugin": "t",
+//             "name": "resize",
+//             "values": [
+//                 {
+//                     "key": "h",
+//                     "value": "100"
+//                 },
+//                 {
+//                     "key": "w",
+//                     "value": "200"
+//                 }
+//             ]
+//         },
+//         {
+//             "plugin": "t",
+//             "name": "flip",
+//         }
+//     ],
+//     "filePath": "path/to/image.jpeg",
+//     "baseUrl": "https://xyz.designify.media",
+//     "wrkr": False,
+//     "workerPath": "",
+//     "options": {}
+// }
+```
+
+```php
+<?php
+
+use Pixelbin\Utils\Url;
+
+$workerUrl = "https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/wrkr/resize:h100,w:200/folder/image.jpeg";
+
+$obj = Url::url_to_obj(workerUrl)
+// obj
+// {
+//     "cloudName": "your-cloud-name",
+//     "zone": "z-slug",
+//     "version": "v2",
+//     "transformations": [],
+//     "filePath": "",
+//     "worker": True,
+//     "workerPath": "resize:h100,w:200/folder/image.jpeg",
+//     "baseUrl": "https://cdn.pixelbin.io"
+//     "options": {}
+// }
 ```
 
 ### obj_to_url
 
 Converts the extracted url obj to a Pixelbin url.
 
-| property                | description                            | example                    |
-| ----------------------- | -------------------------------------- | -------------------------- |
-| cloudName (string)      | The cloudname extracted from the url   | `your-cloud-name`          |
-| zone (string)           | 6 character zone slug                  | `z-slug`                   |
-| version (string)        | cdn api version                        | `v2`                       |
-| options (object)        | optional query parameters              |                            |
-| transformations (array) | Extracted transformations from the url |                            |
-| filePath                | Path to the file on Pixelbin storage   | `/path/to/image.jpeg`      |
-| baseUrl (string)        | Base url                               | `https://cdn.pixelbin.io/` |
+| Property                   | Description                                          | Example                               |
+| -------------------------- | ---------------------------------------------------- | ------------------------------------- |
+| `cloudName` (string)       | The cloudname extracted from the URL                 | `your-cloud-name`                     |
+| `zone` (string)            | 6 character zone slug                                | `z-slug`                              |
+| `version` (string)         | CDN API version                                      | `v2`                                  |
+| `transformations` (array)  | Extracted transformations from the URL               | `[{ "plugin": "t", "name": "flip" }]` |
+| `filePath` (string)        | Path to the file on Pixelbin storage                 | `/path/to/image.jpeg`                 |
+| `baseUrl` (string)         | Base URL                                             | `https://cdn.pixelbin.io/`            |
+| `isCustomDomain` (boolean) | Indicates if the URL is for a custom domain          | `False`                               |
+| `worker` (boolean)         | Indicates if the URL is a URL Translation Worker URL | `False`                               |
+| `workerPath` (string)      | Input path to a URL Translation Worker               | `resize:w200,h400/folder/image.jpeg`  |
+| `options` (Object)         | Query parameters added, such as "dpr" and "f_auto"   | `{ "dpr": 2.0, "f_auto": True }`      |
 
 ```php
 <?php
@@ -374,12 +439,71 @@ $obj = [
 ];
 
 $url = Url::obj_to_url($obj);
+// url
+// https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=true
 ```
 
-Output url stored in `$url`:
+Usage with custom domain
 
-```bash
-https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg?dpr=2.0&f_auto=True
+```php
+<?php
+
+use Pixelbin\Utils\Url;
+
+$obj = [
+    "zone" => "z-slug",
+    "version" => "v2",
+    "transformations" => [
+        [
+            "plugin" => "t",
+            "name" => "resize",
+            "values" => [
+                [
+                    "key" => "h",
+                    "value" => "100",
+                ],
+                [
+                    "key" => "w",
+                    "value" => "200",
+                ],
+            ],
+        ],
+        [
+            "plugin" => "t",
+            "name" => "flip",
+        ],
+    ],
+    "filePath" => "path/to/image.jpeg",
+    "baseUrl" => "https://xyz.designify.media",
+    "isCustomDomain" => True,
+];
+
+$url = Url::obj_to_url($obj); // obj is as shown above
+// url
+// https://xyz.designify.media/v2/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg
+```
+
+Usage with URL Translation Worker
+
+```php
+<?php
+
+use Pixelbin\Utils\Url;
+
+$obj = {
+    "cloudName" => "your-cloud-name",
+    "zone" => "z-slug",
+    "version" => "v2",
+    "transformations" => [],
+    "filePath" => "",
+    "worker" => True,
+    "workerPath" => "resize:h100,w:200/folder/image.jpeg",
+    "baseUrl" => "https://cdn.pixelbin.io",
+};
+
+$url = Url::obj_to_url($obj); // obj is as shown above
+// url
+// https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/wrkr/resize:h100,w:200/folder/image.jpeg
 ```
 
 ## Documentation

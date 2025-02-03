@@ -1398,6 +1398,66 @@ namespace Pixelbin\Tests {
                     ],
                 ],
             ],
+            "signedUrlChunkUpload" => [
+                "response" => [
+                    "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
+                    "method" => "put",
+                    "params" => [],
+                    "data" => [],
+                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
+                    "status_code" => 204,
+                    "content" => "{\"status\":\"success\"}",
+                    "headers" => [
+                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
+                        "Content-Type" => "application/json; charset=utf-8",
+                        "Transfer-Encoding" => "chunked",
+                        "Connection" => "keep-alive",
+                        "x-powered-by" => "Express",
+                        "Vary" => "Origin",
+                        "Access-Control-Allow-Credentials" => "true",
+                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
+                        "Etag" => "301-h/aPj95C/FhjvyhIw0tqK5Kjt3M",
+                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
+                        "Via" => "1.1 google",
+                        "CF-Cache-Status" => "DYNAMIC",
+                        "Server" => "cloudflare",
+                        "CF-RAY" => "86332f76fd95f2ef-BOM",
+                        "Content-Encoding" => "gzip"
+                    ],
+                    "cookies" => [],
+                    "error_message" => ""
+                ]
+            ],
+            "signedUrlUploadComplete" => [
+                "response" => [
+                    "url" => "https://api.pixelbin.io/service/public/assets/v1.0/signed-multipart?pbs=3ab526b08221fd3e5c6facfc101a&pbe=1710243228975&pbt=ca1bdc76-9498-4353-385d-61e190c5c663&pbo=3308&pbu=376a20ef-cf61-469d-a90f-c35177cc1dd6",
+                    "method" => "post",
+                    "params" => [],
+                    "data" => [],
+                    "external_call_request_time" => "2024-03-12 16:13:48.862784+05:30",
+                    "status_code" => 200,
+                    "content" => "{\"status\":\"success\"}",
+                    "headers" => [
+                        "Date" => "Tue, 12 Mar 2024 10:43:48 GMT",
+                        "Content-Type" => "application/json; charset=utf-8",
+                        "Transfer-Encoding" => "chunked",
+                        "Connection" => "keep-alive",
+                        "x-powered-by" => "Express",
+                        "Vary" => "Origin",
+                        "Access-Control-Allow-Credentials" => "true",
+                        "Access-Control-Expose-Headers" => "Accept-Ranges,Content-Encoding,Content-Length,Content-Range,Range",
+                        "Etag" => "301-h/aPj95C/FhjvyhIw0tqK5Kjt3M",
+                        "x-fynd-trace-id" => "99cd4918c812ee1fa3ef573a16390ed7",
+                        "Via" => "1.1 google",
+                        "CF-Cache-Status" => "DYNAMIC",
+                        "Server" => "cloudflare",
+                        "CF-RAY" => "86332f76fd95f2ef-BOM",
+                        "Content-Encoding" => "gzip"
+                    ],
+                    "cookies" => [],
+                    "error_message" => ""
+                ]
+            ],
         ]
     );
 
