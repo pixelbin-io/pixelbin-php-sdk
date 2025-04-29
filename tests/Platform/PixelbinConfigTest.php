@@ -6,14 +6,12 @@ namespace Pixelbin\Tests\Platform {
     use Pixelbin\Common\{
         Exceptions,
     };
-
     use Pixelbin\Platform\{
         PixelbinConfig,
         PixelbinClient,
         Assets,
         Organization
     };
-
     use PHPUnit\Framework\TestCase;
     use Exception;
 

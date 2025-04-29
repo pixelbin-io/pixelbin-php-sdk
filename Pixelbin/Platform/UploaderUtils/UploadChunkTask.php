@@ -41,8 +41,9 @@ namespace Pixelbin\Platform\UploaderUtils {
                     $formData = $this->prepareChunkFormData($this->fields, $this->chunk);
                     $uploadUrl = $this->appendPartNumber($this->url, $this->partNumber);
 
-                    if (static::$helper === null)
+                    if (static::$helper === null) {
                         static::$helper = new GuzzleHttpHelper();
+                    }
 
                     $response = static::$helper->request(
                         "PUT",

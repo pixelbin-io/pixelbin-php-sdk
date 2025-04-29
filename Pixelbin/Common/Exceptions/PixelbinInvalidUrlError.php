@@ -6,7 +6,7 @@ namespace Pixelbin\Common\Exceptions {
 
     /**
      * Pixelbin Invalid Url Exception.
-     * 
+     *
      * @deprecated use PDKInvalidUrlError instead
      */
     class PixelbinInvalidUrlError extends Exception

@@ -83,7 +83,7 @@ namespace Pixelbin\Platform {
             // Wait for all uploads to complete
             try {
                 $responses = Future\await(array_map(
-                    fn(Worker\Execution $e) => $e->getFuture(),
+                    fn (Worker\Execution $e) => $e->getFuture(),
                     $uploadTasks,
                 ));
             } catch (\Exception $e) {

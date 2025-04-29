@@ -8,12 +8,12 @@ namespace Pixelbin\Common {
     {
         /**
          * Creates query string
-         * 
+         *
          * @param array $params query params
-         * 
+         *
          * @return string
          */
-        static function create_query_string(array $params = []): string
+        public static function create_query_string(array $params = []): string
         {
             $query_string = "";
 
@@ -26,16 +26,18 @@ namespace Pixelbin\Common {
                         asort($value);
                         $idx = 0;
                         foreach ($value as $k => $v) {
-                            if (is_bool($v))
+                            if (is_bool($v)) {
                                 $final_params[] = "$key=" . json_encode($v);
-                            else
+                            } else {
                                 $final_params[] = "$key=$v";
+                            }
                             $idx++;
                         }
-                    } elseif (is_bool($value))
+                    } elseif (is_bool($value)) {
                         $final_params[] = "$key=" . json_encode($value);
-                    else
+                    } else {
                         $final_params[] = "$key=$value";
+                    }
                 }
 
                 $query_string = implode("&", $final_params);
@@ -55,10 +57,10 @@ namespace Pixelbin\Common {
          * @param array|string|null $body
          * @param array $exclude_headers
          * @param bool $sign_query
-         * 
+         *
          * @return array|string
          */
-        static function add_signature_to_headers(string $domain, string $method, string $url, string $query_string, array $headers, array|string|null $body = "", array $exclude_headers = [], bool $sign_query = false): array|string
+        public static function add_signature_to_headers(string $domain, string $method, string $url, string $query_string, array $headers, array|string|null $body = "", array $exclude_headers = [], bool $sign_query = false): array|string
         {
             $query_string = urldecode($query_string);
             $ebg_date = DateHelper::get_ist_now()->format("Ymd\THis\Z");
@@ -67,10 +69,11 @@ namespace Pixelbin\Common {
             $input_headers = $headers;
             $input_headers["host"] = $host;
 
-            if (!$sign_query)
+            if (!$sign_query) {
                 $input_headers["x-ebg-param"] = $ebg_date;
-            else
+            } else {
                 $query_string = $query_string . $query_string ? "&x-ebg-param=$ebg_date" : "?x-ebg-param=$ebg_date";
+            }
             $excluded_headers = [];
 
             foreach ($exclude_headers as $header) {
@@ -111,10 +114,11 @@ namespace Pixelbin\Common {
             $request_str = implode("\n", [$ebg_date, hash("sha256", mb_convert_encoding($request_str, "UTF-8"))]);
             $signature = "v1:" . hash_hmac("sha256", mb_convert_encoding($request_str, "UTF-8"), "1234567");
 
-            if (!$sign_query)
+            if (!$sign_query) {
                 $input_headers["x-ebg-signature"] = $signature;
-            else
+            } else {
                 $query_string = $query_string . "&x-ebg-signature=$signature";
+            }
 
             foreach ($excluded_headers as $h_key => $h_value) {
                 if (!empty($h_value)) {
@@ -129,7 +133,7 @@ namespace Pixelbin\Common {
         {
             return [
                 "name" => "pixelbin/pixelbin",
-                "version" => "1.0.0"
+                "version" => "1.0.1"
             ];
         }
     }

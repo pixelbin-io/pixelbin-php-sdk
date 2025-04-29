@@ -8,13 +8,11 @@ namespace Pixelbin\Tests\Platform {
         GuzzleHttpHelper,
         Utils
     };
-
     use Pixelbin\Platform\{
         APIClient,
         PixelbinConfig,
         PixelbinClient,
     };
-
     use PHPUnit\Framework\TestCase;
 
     final class UserAgentTest extends TestCase

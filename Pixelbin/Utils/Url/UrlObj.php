@@ -57,13 +57,13 @@ namespace Pixelbin\Utils\Url {
 
             if ($this->options !== null && $other->options !== null) {
                 $optionsValid = (string) $this->options === (string) $other->options;
-            } else if ($this->options !== null ^ $other->options !== null) {
+            } elseif ($this->options !== null ^ $other->options !== null) {
                 $optionsValid = false;
             }
 
             if ($this->transformations !== null && $other->transformations !== null) {
                 $transformationsValid = UrlTransformation::get_string($this->transformations) === UrlTransformation::get_string($other->transformations);
-            } else if ($this->transformations !== null ^ $other->transformations !== null) {
+            } elseif ($this->transformations !== null ^ $other->transformations !== null) {
                 $transformationsValid = false;
             }
 

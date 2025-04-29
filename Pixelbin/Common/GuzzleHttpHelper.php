@@ -92,14 +92,14 @@ namespace Pixelbin\Common {
         }
         /**
          * Call API using GuzzleHttp.
-         * 
+         *
          * @param string $method Request method type
          * @param string $url URL to be hit
          * @param array|null $params Query parameters
          * @param array|null $data Request body data
          * @param array $headers Headers
          * @param int $timeoutAllowed Timeout for request in seconds
-         * 
+         *
          * @return array Response data
          */
         public function request(

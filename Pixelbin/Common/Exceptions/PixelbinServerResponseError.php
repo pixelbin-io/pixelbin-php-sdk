@@ -6,7 +6,7 @@ namespace Pixelbin\Common\Exceptions {
 
     /**
      * Pixelbin Server Response Exception.
-     * 
+     *
      * @deprecated use PDKServerResponseError instead
      */
     class PixelbinServerResponseError extends Exception

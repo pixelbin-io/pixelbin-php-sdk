@@ -12,7 +12,7 @@ Getting started with Pixelbin Backend SDK for PHP
 composer require pixelbin/pixelbin
 ```
 
----
+______________________________________________________________________
 
 ### Usage
 
@@ -54,47 +54,47 @@ Uploads a file to PixelBin with greater control over the upload process.
 
 #### Arguments
 
-| Argument            | Type                                                        | Required | Description                                                                                                                                                                                                                                           |
+| Argument | Type | Required | Description |
 | ------------------- | ----------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `file`              | `StreamInterface` or `buffer(string)`                       | yes      | The file to be uploaded.                                                                                                                                                                                                                              |
-| `name`              | `string`                                                    | no       | Name of the file.                                                                                                                                                                                                                                     |
-| `path`              | `string`                                                    | no       | Path of the containing folder.                                                                                                                                                                                                                        |
-| `format`            | `string`                                                    | no       | Format of the file.                                                                                                                                                                                                                                   |
-| `access`            | [AccessEnum](./documentation/platform/ASSETS.md#accessenum) | no       | Access level of the asset, can be either `'public-read'` or `'private'`.                                                                                                                                                                              |
-| `tags`              | `list[string]`                                              | no       | Tags associated with the file.                                                                                                                                                                                                                        |
-| `metadata`          | `object`                                                    | no       | Metadata associated with the file.                                                                                                                                                                                                                    |
-| `overwrite`         | `bool`                                                      | no       | Overwrite flag. If set to `True`, will overwrite any file that exists with the same path, name, and type. Defaults to `False`.                                                                                                                        |
-| `filenameOverride`  | `bool`                                                      | no       | If set to `True`, will add unique characters to the name if an asset with the given name already exists. If the overwrite flag is set to `True`, preference will be given to the overwrite flag. If both are set to `False`, an error will be raised. |
-| `expiry`            | `int`                                                       | no       | Expiry time in seconds for the underlying signed URL. Defaults to 3000 seconds.                                                                                                                                                                       |
-| `uploadOptions`     | `array`                                                     | no       | Additional options for fine-tuning the upload process. Default: `{ chunk_size: 10 * 1024 * 1024, max_retries: 2, concurrency: 3, exponential_factor: 2 }`.                                                                                            |
-| `chunkSize`         | `int`                                                       | no       | Size of each chunk to upload. Default is 10 megabytes.                                                                                                                                                                                                |
-| `maxRetries`        | `int`                                                       | no       | Maximum number of retries if an upload fails. Default is 2 retries.                                                                                                                                                                                   |
-| `concurrency`       | `int`                                                       | no       | Number of concurrent chunk upload tasks. Default is 3 concurrent chunk uploads.                                                                                                                                                                       |
-| `exponentialFactor` | `float`                                                     | no       | The exponential factor for retry delay. Default is 2.                                                                                                                                                                                                 |
+| `file` | `StreamInterface` or `buffer(string)` | yes | The file to be uploaded. |
+| `name` | `string` | no | Name of the file. |
+| `path` | `string` | no | Path of the containing folder. |
+| `format` | `string` | no | Format of the file. |
+| `access` | [AccessEnum](./documentation/platform/ASSETS.md#accessenum) | no | Access level of the asset, can be either `'public-read'` or `'private'`. |
+| `tags` | `list[string]` | no | Tags associated with the file. |
+| `metadata` | `object` | no | Metadata associated with the file. |
+| `overwrite` | `bool` | no | Overwrite flag. If set to `True`, will overwrite any file that exists with the same path, name, and type. Defaults to `False`. |
+| `filenameOverride` | `bool` | no | If set to `True`, will add unique characters to the name if an asset with the given name already exists. If the overwrite flag is set to `True`, preference will be given to the overwrite flag. If both are set to `False`, an error will be raised. |
+| `expiry` | `int` | no | Expiry time in seconds for the underlying signed URL. Defaults to 3000 seconds. |
+| `uploadOptions` | `array` | no | Additional options for fine-tuning the upload process. Default: `{ chunk_size: 10 * 1024 * 1024, max_retries: 2, concurrency: 3, exponential_factor: 2 }`. |
+| `chunkSize` | `int` | no | Size of each chunk to upload. Default is 10 megabytes. |
+| `maxRetries` | `int` | no | Maximum number of retries if an upload fails. Default is 2 retries. |
+| `concurrency` | `int` | no | Number of concurrent chunk upload tasks. Default is 3 concurrent chunk uploads. |
+| `exponentialFactor` | `float` | no | The exponential factor for retry delay. Default is 2. |
 
 #### Returns
 
 `array`: On success, returns a dictionary containing the details of the uploaded file.
 
-| Property     | Description                                                  | Example                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Property | Description | Example |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `orgId`      | Organization ID                                              | `5320086`                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `type`       | Type of the uploaded entity                                  | `file`                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `name`       | Name of the file                                             | `testfile.jpeg`                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `path`       | Path of the containing folder                                | `/path/to/image.jpeg`                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `fileId`     | ID of the file                                               | `testfile.jpeg`                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `access`     | Access level of the asset, can be `public-read` or `private` | `public-read`                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `tags`       | Tags associated with the file                                | `["tag1", "tag2"]`                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `metadata`   | Metadata associated with the file                            | `{"source":"", "publicUploadId":""}`                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `format`     | File format                                                  | `jpeg`                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `assetType`  | Type of asset                                                | `image`                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `size`       | File size (in bytes)                                         | `37394`                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `width`      | File width (in pixels)                                       | `720`                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `height`     | File height (in pixels)                                      | `450`                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `context`    | File metadata and additional context                         | `{"steps":[],"req":{"headers":{},"query":{}},"meta":{"format":"png","size":195337,"width":812,"height":500,"space":"srgb","channels":4,"depth":"uchar","density":144,"isProgressive":false,"resolutionUnit":"inch","hasProfile":true,"hasAlpha":true,"extension":"jpeg","contentType":"image/png","assetType":"image","isImageAsset":true,"isAudioAsset":false,"isVideoAsset":false,"isRawAsset":false,"isTransformationSupported":true}}` |
-| `isOriginal` | Flag indicating if the file is original                      | `true`                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `_id`        | Record ID                                                    | `a0b0b19a-d526-4xc07-ae51-0xxxxxx`                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `url`        | URL of the uploaded file                                     | `https://cdn.pixelbin.io/v2/user-e26cf3/original/testfile.jpeg`                                                                                                                                                                                                                                                                                                                                                                            |
+| `orgId` | Organization ID | `5320086` |
+| `type` | Type of the uploaded entity | `file` |
+| `name` | Name of the file | `testfile.jpeg` |
+| `path` | Path of the containing folder | `/path/to/image.jpeg` |
+| `fileId` | ID of the file | `testfile.jpeg` |
+| `access` | Access level of the asset, can be `public-read` or `private` | `public-read` |
+| `tags` | Tags associated with the file | `["tag1", "tag2"]` |
+| `metadata` | Metadata associated with the file | `{"source":"", "publicUploadId":""}` |
+| `format` | File format | `jpeg` |
+| `assetType` | Type of asset | `image` |
+| `size` | File size (in bytes) | `37394` |
+| `width` | File width (in pixels) | `720` |
+| `height` | File height (in pixels) | `450` |
+| `context` | File metadata and additional context | `{"steps":[],"req":{"headers":{},"query":{}},"meta":{"format":"png","size":195337,"width":812,"height":500,"space":"srgb","channels":4,"depth":"uchar","density":144,"isProgressive":false,"resolutionUnit":"inch","hasProfile":true,"hasAlpha":true,"extension":"jpeg","contentType":"image/png","assetType":"image","isImageAsset":true,"isAudioAsset":false,"isVideoAsset":false,"isRawAsset":false,"isTransformationSupported":true}}` |
+| `isOriginal` | Flag indicating if the file is original | `true` |
+| `_id` | Record ID | `a0b0b19a-d526-4xc07-ae51-0xxxxxx` |
+| `url` | URL of the uploaded file | `https://cdn.pixelbin.io/v2/user-e26cf3/original/testfile.jpeg` |
 
 #### Example Usage
 
@@ -210,12 +210,12 @@ try {
 
 Generate a signed Pixelbin URL
 
-| Parameter                | Description                                          | Example                                                                                    |
+| Parameter | Description | Example |
 | ------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `url` (string)           | A valid Pixelbin URL to be signed                    | `https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg` |
-| `expirySeconds` (number) | Number of seconds the signed URL should be valid for | `20`                                                                                       |
-| `accessKey` (string)     | Access key of the token used for signing             | `00000000-0000-0000-0000-000000000000`                                                     |
-| `token` (string)         | Value of the token used for signing                  | `dummy-token`                                                                              |
+| `url` (string) | A valid Pixelbin URL to be signed | `https://cdn.pixelbin.io/v2/dummy-cloudname/original/__playground/playground-default.jpeg` |
+| `expirySeconds` (number) | Number of seconds the signed URL should be valid for | `20` |
+| `accessKey` (string) | Access key of the token used for signing | `00000000-0000-0000-0000-000000000000` |
+| `token` (string) | Value of the token used for signing | `dummy-token` |
 
 Example:
 
@@ -259,26 +259,26 @@ Pixelbin provides url utilities to construct and deconstruct Pixelbin urls.
 
 Deconstruct a pixelbin url
 
-| parameter               | description                                                        | example                                                                                               |
+| parameter | description | example |
 | ----------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `url` (string)          | A valid Pixelbin URL                                               | `https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg` |
-| `opts` (Object)         | Options for the conversion                                         | Default: `{ isCustomDomain: False }`                                                                  |
-| `opts.is_custom_domain` | Indicates if the URL belongs to a custom domain (default: `False`) |                                                                                                       |
+| `url` (string) | A valid Pixelbin URL | `https://cdn.pixelbin.io/v2/your-cloud-name/z-slug/t.resize(h:100,w:200)~t.flip()/path/to/image.jpeg` |
+| `opts` (Object) | Options for the conversion | Default: `{ isCustomDomain: False }` |
+| `opts.is_custom_domain` | Indicates if the URL belongs to a custom domain (default: `False`) | |
 
 **Returns**:
 
-| Property                  | Description                                          | Example                               |
+| Property | Description | Example |
 | ------------------------- | ---------------------------------------------------- | ------------------------------------- |
-| `baseURL` (string)        | Base path of the URL                                 | `https://cdn.pixelbin.io`             |
-| `filePath` (string)       | Path to the file on Pixelbin storage                 | `/path/to/image.jpeg`                 |
-| `version` (string)        | Version of the URL                                   | `v2`                                  |
-| `cloudName` (string)      | Cloud name from the URL                              | `your-cloud-name`                     |
-| `transformations` (array) | A list of transformation objects                     | `[{ "plugin": "t", "name": "flip" }]` |
-| `zone` (string)           | Zone slug from the URL                               | `z-slug`                              |
-| `pattern` (string)        | Transformation pattern extracted from the URL        | `t.resize(h:100,w:200)~t.flip()`      |
-| `worker` (boolean)        | Indicates if the URL is a URL Translation Worker URL | `False`                               |
-| `workerPath` (string)     | Input path to a URL Translation Worker               | `resize:w200,h400/folder/image.jpeg`  |
-| `options` (Object)        | Query parameters added, such as "dpr" and "f_auto"   | `{ dpr: 2.5, f_auto: True}`           |
+| `baseURL` (string) | Base path of the URL | `https://cdn.pixelbin.io` |
+| `filePath` (string) | Path to the file on Pixelbin storage | `/path/to/image.jpeg` |
+| `version` (string) | Version of the URL | `v2` |
+| `cloudName` (string) | Cloud name from the URL | `your-cloud-name` |
+| `transformations` (array) | A list of transformation objects | `[{ "plugin": "t", "name": "flip" }]` |
+| `zone` (string) | Zone slug from the URL | `z-slug` |
+| `pattern` (string) | Transformation pattern extracted from the URL | `t.resize(h:100,w:200)~t.flip()` |
+| `worker` (boolean) | Indicates if the URL is a URL Translation Worker URL | `False` |
+| `workerPath` (string) | Input path to a URL Translation Worker | `resize:w200,h400/folder/image.jpeg` |
+| `options` (Object) | Query parameters added, such as "dpr" and "f_auto" | `{ dpr: 2.5, f_auto: True}` |
 
 Example:
 
@@ -388,18 +388,18 @@ $obj = Url::url_to_obj(workerUrl)
 
 Converts the extracted url obj to a Pixelbin url.
 
-| Property                   | Description                                          | Example                               |
+| Property | Description | Example |
 | -------------------------- | ---------------------------------------------------- | ------------------------------------- |
-| `cloudName` (string)       | The cloudname extracted from the URL                 | `your-cloud-name`                     |
-| `zone` (string)            | 6 character zone slug                                | `z-slug`                              |
-| `version` (string)         | CDN API version                                      | `v2`                                  |
-| `transformations` (array)  | Extracted transformations from the URL               | `[{ "plugin": "t", "name": "flip" }]` |
-| `filePath` (string)        | Path to the file on Pixelbin storage                 | `/path/to/image.jpeg`                 |
-| `baseUrl` (string)         | Base URL                                             | `https://cdn.pixelbin.io/`            |
-| `isCustomDomain` (boolean) | Indicates if the URL is for a custom domain          | `False`                               |
-| `worker` (boolean)         | Indicates if the URL is a URL Translation Worker URL | `False`                               |
-| `workerPath` (string)      | Input path to a URL Translation Worker               | `resize:w200,h400/folder/image.jpeg`  |
-| `options` (Object)         | Query parameters added, such as "dpr" and "f_auto"   | `{ "dpr": 2.0, "f_auto": True }`      |
+| `cloudName` (string) | The cloudname extracted from the URL | `your-cloud-name` |
+| `zone` (string) | 6 character zone slug | `z-slug` |
+| `version` (string) | CDN API version | `v2` |
+| `transformations` (array) | Extracted transformations from the URL | `[{ "plugin": "t", "name": "flip" }]` |
+| `filePath` (string) | Path to the file on Pixelbin storage | `/path/to/image.jpeg` |
+| `baseUrl` (string) | Base URL | `https://cdn.pixelbin.io/` |
+| `isCustomDomain` (boolean) | Indicates if the URL is for a custom domain | `False` |
+| `worker` (boolean) | Indicates if the URL is a URL Translation Worker URL | `False` |
+| `workerPath` (string) | Input path to a URL Translation Worker | `resize:w200,h400/folder/image.jpeg` |
+| `options` (Object) | Query parameters added, such as "dpr" and "f_auto" | `{ "dpr": 2.0, "f_auto": True }` |
 
 ```php
 <?php

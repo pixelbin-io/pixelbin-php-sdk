@@ -4,11 +4,13 @@ namespace Pixelbin\Platform\Enums {
 
     use Exception;
 
-    enum AccessEnum: string {
+    enum AccessEnum: string
+    {
         case PUBLIC_READ = "public-read";
         case PRIVATE = "private";
 
-        public static function is_valid($value) {
+        public static function is_valid($value)
+        {
             $validValues = [
                 self::PUBLIC_READ->value,
                 self::PRIVATE->value,

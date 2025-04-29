@@ -116,3 +116,4 @@ Success. Returns a JSON object as shown below. Refer `AppOrgDetails` for more de
 | Properties | Type | Nullable | Description |
 | ---------- | ---- | -------- | ----------- |
 | message | string |  no  |  |
+

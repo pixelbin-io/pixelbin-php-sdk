@@ -5,9 +5,9 @@ namespace Pixelbin\Utils\Url {
 
     class Utils
     {
-        const OPERATION_SEPARATOR = "~";
-        const PARAMETER_SEPARATOR = ",";
-        const PARAMETER_LINK = ":";
+        public const OPERATION_SEPARATOR = "~";
+        public const PARAMETER_SEPARATOR = ",";
+        public const PARAMETER_LINK = ":";
 
         public static function splice($source, $start, $deleteCount)
         {
@@ -124,8 +124,9 @@ namespace Pixelbin\Utils\Url {
         private static function get_params_list($dSplit, $prefix)
         {
             $splitRes = explode("(", $dSplit);
-            if (count($splitRes) < 2)
+            if (count($splitRes) < 2) {
                 return [];
+            }
 
             return explode(self::PARAMETER_SEPARATOR, self::remove_leading_dash(str_replace($prefix, "", str_replace(")", "", $splitRes[1]))));
         }
@@ -149,30 +150,35 @@ namespace Pixelbin\Utils\Url {
             $fullFnName = explode("(", $dSplit)[0];
 
             if (strpos($dSplit, 'p:') === 0) {
-                if (count(explode(':', $fullFnName, 2)) < 2)
-                    throw new \Exception;
+                if (count(explode(':', $fullFnName, 2)) < 2) {
+                    throw new \Exception();
+                }
                 [$pluginId, $operationName] = explode(':', $fullFnName, 2);
             } else {
-                if (count(explode('.', $fullFnName, 2)) < 2)
-                    throw new \Exception;
+                if (count(explode('.', $fullFnName, 2)) < 2) {
+                    throw new \Exception();
+                }
 
                 [$pluginId, $operationName] = explode('.', $fullFnName, 2);
             }
 
             $values = [];
             if ($pluginId === 'p') {
-                if (str_contains($dSplit, "("))
+                if (str_contains($dSplit, "(")) {
                     $values = self::get_params_object(self::get_params_list($dSplit, ''));
+                }
             } else {
-                if (str_contains($dSplit, "("))
+                if (str_contains($dSplit, "(")) {
                     $values = self::get_params_object(self::get_params_list($dSplit, ''));
-                else
-                    throw new \Exception;
+                } else {
+                    throw new \Exception();
+                }
             }
 
             $transformation = new UrlTransformation(plugin: $pluginId, name: $operationName);
-            if (count($values) > 0)
+            if (count($values) > 0) {
                 $transformation->values = $values;
+            }
 
             return $transformation;
         }

@@ -8,13 +8,11 @@ namespace Pixelbin\Tests\Platform {
         GuzzleHttpHelper,
         Utils
     };
-
     use Pixelbin\Platform\{
         APIClient,
         PixelbinConfig,
         PixelbinClient,
     };
-
     use PHPUnit\Framework\TestCase;
     use Exception;
     use Pixelbin\Platform\Enums\AccessEnum;
@@ -71,8 +69,9 @@ namespace Pixelbin\Tests\Platform {
 
         public function setUpAssertions(array $mockData = [], array $realData = [])
         {
-            if ($this->enableMocking)
+            if ($this->enableMocking) {
                 $this->assertEquals(...$realData);
+            }
         }
 
         public function setUp(): void

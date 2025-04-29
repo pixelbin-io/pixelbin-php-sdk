@@ -3,7 +3,7 @@
 namespace Pixelbin\Common {
     class DateHelper
     {
-        static function get_ist_now()
+        public static function get_ist_now()
         {
             // Set the timezone
             $timezone = timezone_open(TIMEZONE);

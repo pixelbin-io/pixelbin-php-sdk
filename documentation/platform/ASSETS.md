@@ -244,7 +244,7 @@ try {
 
 | Argument | Type | Required | Description |
 | --------- | ----- | -------- | ----------- |
-| _id | string | yes | _id of File |
+| id | string | yes | _id of File |
 
 *Returned Response:*
 
@@ -782,7 +782,7 @@ try {
 
 | Argument | Type | Required | Description |
 | --------- | ----- | -------- | ----------- |
-| _id | string | yes | _id of folder to be deleted |
+| id | string | yes | _id of folder to be deleted |
 
 Delete folder and all its children permanently.
 
@@ -839,7 +839,7 @@ try {
 
 | Argument | Type | Required | Description |
 | --------- | ----- | -------- | ----------- |
-| _id | string | yes | _id of the folder |
+| id | string | yes | _id of the folder |
 
 Get all ancestors of a folder, using the folder ID.
 
@@ -2223,3 +2223,4 @@ Type : string
 | private | private | private |
 
 ---
+

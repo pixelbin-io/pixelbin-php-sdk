@@ -46,8 +46,9 @@ namespace Pixelbin\Tests\Utils {
             foreach ($keys as $idx => $value) {
                 $key = $keys[$idx];
                 $this->assertTrue(isset($searchParams[$key]), "$key searchParam should be present");
-                if (str_contains($key, "testquery"))
+                if (str_contains($key, "testquery")) {
                     $this->assertEquals("testval", $value);
+                }
             }
         }
 

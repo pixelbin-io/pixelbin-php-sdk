@@ -28,8 +28,9 @@ namespace Pixelbin\Platform {
             $headers["User-Agent"] = $userAgent;
             $data = $contentType === "multipart/form-data" ? null : $body;
 
-            if (!empty($contentType) && $contentType !== "multipart/form-data" && !empty($body))
+            if (!empty($contentType) && $contentType !== "multipart/form-data" && !empty($body)) {
                 $headers["Content-Type"] = $contentType;
+            }
 
             if (!empty($query) && strtoupper($method) === 'GET') {
                 $get_params = [];
@@ -65,8 +66,9 @@ namespace Pixelbin\Platform {
 
             $host = str_replace("http://", "", str_replace("https://", "", $conf->domain));
             $headers["host"] = $host;
-            if (static::$helper === null)
+            if (static::$helper === null) {
                 static::$helper = new GuzzleHttpHelper();
+            }
             return static::$helper->request($method, $conf->domain . $url, $query, $body, $headers);
         }
     }

@@ -32,16 +32,16 @@ namespace Pixelbin\Utils\Url {
                     $urlDetails->filePath = "";
                     $urlDetails->worker = true;
                     $urlDetails->workerPath = implode("/", array_slice($parts, 2));
-                } else if (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITH_WORKER'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITH_WORKER'], implode("/", $parts))) {
                     $urlDetails->pattern = "";
                     $urlDetails->filePath = "";
                     $urlDetails->worker = true;
                     $urlDetails->workerPath = implode("/", array_slice($parts, 2));
-                } else if (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITH_ZONE'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITH_ZONE'], implode("/", $parts))) {
                     $urlDetails->zone = array_splice($parts, 1, 1)[0];
                     $urlDetails->pattern = array_splice($parts, 1, 1)[0];
                     $urlDetails->filePath = implode("/", array_slice($parts, 1));
-                } else if (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITHOUT_ZONE'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::CUSTOM_DOMAIN_REGEX['URL_WITHOUT_ZONE'], implode("/", $parts))) {
                     $urlDetails->pattern = array_splice($parts, 1, 1)[0];
                     $urlDetails->filePath = implode("/", array_slice($parts, 1));
                 } else {
@@ -64,18 +64,18 @@ namespace Pixelbin\Utils\Url {
                     $urlDetails->filePath = "";
                     $urlDetails->worker = true;
                     $urlDetails->workerPath = implode("/", array_slice($parts, 2));
-                } else if (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITH_WORKER'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITH_WORKER'], implode("/", $parts))) {
                     $urlDetails->cloudName = array_splice($parts, 1, 1)[0];
                     $urlDetails->pattern = "";
                     $urlDetails->filePath = "";
                     $urlDetails->worker = true;
                     $urlDetails->workerPath = implode("/", array_slice($parts, 2));
-                } else if (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITH_ZONE'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITH_ZONE'], implode("/", $parts))) {
                     $urlDetails->cloudName = array_splice($parts, 1, 1)[0];
                     $urlDetails->zone = array_splice($parts, 1, 1)[0];
                     $urlDetails->pattern = array_splice($parts, 1, 1)[0];
                     $urlDetails->filePath = implode("/", array_slice($parts, 1));
-                } else if (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITHOUT_ZONE'], implode("/", $parts))) {
+                } elseif (RegexUtils::test(RegexUtils::PIXELBIN_DOMAIN_REGEX['URL_WITHOUT_ZONE'], implode("/", $parts))) {
                     $urlDetails->cloudName = array_splice($parts, 1, 1)[0];
                     $urlDetails->pattern = array_splice($parts, 1, 1)[0];
                     $urlDetails->filePath = implode("/", array_slice($parts, 1));

@@ -1,0 +1,37 @@
+name: Publish PHP Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.x'
+          
+      - name: Install dependencies
+        run: |
+          composer install
+          composer require --dev friendsofphp/php-cs-fixer phpstan/phpstan
+          
+      - name: Run tests and analysis
+        run: |
+          composer exec phpstan analyse src tests
+          composer exec php-cs-fixer fix . --dry-run
+          
+      - name: Build package
+        run: composer install --no-dev --optimize-autoloader
+        
+      - name: Publish to Packagist
+        env:
+          COMPOSER_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+        run: |
+          curl -XPOST -H "Content-Type:application/json" \
+          -H "Authorization: Bearer ${COMPOSER_TOKEN}" \
+          https://packagist.org/api/update-package?username=pixelbin-io \
+          -d '{"repository":{"url":"https://github.com/pixelbin-io/pixelbin-php-sdk"}}'

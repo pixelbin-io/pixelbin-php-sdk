@@ -6,7 +6,7 @@ namespace Pixelbin\Common\Exceptions {
 
     /**
      * Invalid credential exception.
-     * 
+     *
      * @deprecated use PDKInvalidCredentialError instead
      */
     class PixelbinInvalidCredentialError extends Exception

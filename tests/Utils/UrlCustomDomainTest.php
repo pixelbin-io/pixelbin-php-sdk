@@ -7,6 +7,7 @@ namespace Pixelbin\Tests\Utils {
     use Pixelbin\Utils\Security;
     use Pixelbin\Utils\Url\UrlConfig;
     use Pixelbin\Utils\Url\UrlTransformation;
+
     require_once(__DIR__ . "/test_utils.php");
 
     use Pixelbin\Utils\{
@@ -17,7 +18,6 @@ namespace Pixelbin\Tests\Utils {
     use Pixelbin\Common\{
         Exceptions,
     };
-
     use PHPUnit\Framework\TestCase;
     use Exception;
 
