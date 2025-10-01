@@ -1,5 +1,9 @@
 # Pixelbin Backend SDK CHANGELOG
 
+## 1.0.1
+
+- Updated `justinrainbow/json-schema` to `6.5` version
+
 ## 1.0.0
 
 - Added Security util for url signing.
