@@ -2,6 +2,14 @@
 
 Pixelbin Backend SDK for PHP helps you integrate the core Pixelbin features with your application.
 
+## PHP security advisory — CVE-2026-109618 and CVE-2026-109619
+
+These vulnerabilities affect the PHP runtime. Upgrade to **8.2.35+, 8.3.36+, 8.4.27+, or 8.5.12+** within your supported release line, or use a vendor build with both fixes backported. Restart all PHP workers or redeploy containers, then verify the PHP version serving web requests.
+
+An SDK update is not required specifically for these two CVEs once the underlying PHP runtime is patched. Our SDK source review did not identify a direct SDK-specific exploit chain for these CVEs. This does not make an unpatched PHP runtime safe.
+
+See the [official PHP security advisory](https://www.php.net/archive/2026.php#2026-10-21-5).
+
 ## Getting Started
 
 Getting started with Pixelbin Backend SDK for PHP
